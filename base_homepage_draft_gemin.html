@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笑顔BASE | 看護の外にも、安心と笑顔が生まれる場所を。</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: {
+                            450: '#F59E0B',
+                            950: '#1c130b',
+                        },
+                        warm: {
+                            800: '#292524',
+                            900: '#1c1917',
+                            950: '#0c0a09',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        serif: ['"Cinzel"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .amber-glow {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+        }
+        .bg-glass {
+            background: rgba(28, 25, 23, 0.82);
+            backdrop-filter: blur(12px);
+        }
+        .bg-glass-card {
+            background: rgba(41, 37, 36, 0.6);
+            backdrop-filter: blur(8px);
+        }
+        /* Custom scrollbar for smooth feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0a09;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #44403c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-warm-950 text-stone-200 font-sans antialiased selection:bg-amber-500 selection:text-stone-900">
+
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-glass border-b border-stone-800/80" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-warm-950 font-bold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    <i data-lucide="wine" class="w-5 h-5 text-stone-950"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-wider text-stone-100 block leading-none">笑顔BASE</span>
+                    <span class="text-[10px] tracking-widest text-amber-500/80 font-serif block mt-1">EGAO BASE BAR</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="text-stone-300 hover:text-amber-400 transition-colors">笑顔BASEとは</a>
+                <a href="#story" class="text-stone-300 hover:text-amber-400 transition-colors">つくる理由</a>
+                <a href="#features" class="text-stone-300 hover:text-amber-400 transition-colors">できること</a>
+                <a href="#art" class="text-stone-300 hover:text-amber-400 transition-colors">ART / CHALLENGE</a>
+                <a href="#nurse-future" class="text-stone-300 hover:text-amber-400 transition-colors">看護師の可能性</a>
+                <a href="#faq" class="text-stone-300 hover:text-amber-400 transition-colors">初めての方へ</a>
+                <a href="#info" class="text-stone-300 hover:text-amber-400 transition-colors">店舗情報</a>
+            </nav>
+
+            <!-- Action Button & Discussion Mode Toggle -->
+            <div class="hidden lg:flex items-center gap-3">
+                <button onclick="toggleDiscussionNotes()" class="px-3 py-1.5 rounded-full text-xs bg-stone-800 hover:bg-stone-700 text-amber-400 border border-amber-500/30 flex items-center gap-1.5 transition-colors">
+                    <i data-lucide="message-square-code" class="w-3.5 h-3.5"></i>
+                    <span id="note-toggle-text">打ち合わせメモ: 表示中</span>
+                </button>
+                <a href="#info" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-stone-950 font-semibold text-sm transition-all shadow-md hover:shadow-amber-500/20">
+                    ご来店・アクセス
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-stone-300 hover:text-stone-100 hover:bg-stone-800 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-warm-900 border-b border-stone-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">笑顔BASEとは</a>
+            <a href="#story" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">つくる理由</a>
+            <a href="#features" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">できること</a>
+            <a href="#art" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">ART / CHALLENGE</a>
+            <a href="#nurse-future" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">看護師の可能性</a>
+            <a href="#faq" class="block py-2 text-stone-300 hover:text-amber-400 border-b border-stone-800/50">初めての方へ</a>
+            <a href="#info" class="block py-2 text-stone-300 hover:text-amber-400">店舗情報</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <button onclick="toggleDiscussionNotes()" class="w-full py-2 rounded-lg bg-stone-800 text-amber-400 text-xs flex items-center justify-center gap-2">
+                    <i data-lucide="message-square-code" class="w-4 h-4"></i>
+                    <span>打ち合わせ注釈メモON/OFF</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Hero Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1920" 
+                 alt="笑顔BASE バーの心地よい店内雰囲気" 
+                 class="w-full h-full object-cover object-center filter brightness-[0.4] contrast-[1.1] scale-105 transition-transform duration-10000"
+                 onerror="this.src='https://placehold.co/1920x1080/1c1917/f59e0b?text=Egao+BASE+Atmosphere'">
+            <div class="absolute inset-0 bg-gradient-to-t from-warm-950 via-warm-950/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-radial from-amber-500/10 via-transparent to-warm-950/80"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center py-16">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-medium mb-8 animate-fade-in">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                福岡・看護師がつくった小さなバー
+            </div>
+
+            <!-- Main Catchphrase -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-100 leading-tight sm:leading-tight mb-8">
+                看護の外にも、<br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">安心と笑顔が生まれる場所を。</span>
+            </h1>
+
+            <!-- Sub Catchphrase -->
+            <p class="text-lg sm:text-2xl text-stone-300 font-normal leading-relaxed max-w-3xl mx-auto mb-12">
+                飲む。話す。つながる。<br>
+                ここから、何かが始まる。
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-amber-500 hover:bg-amber-600 text-warm-950 font-bold text-base transition-all shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-2 group">
+                    <span>笑顔BASEについて</span>
+                    <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <a href="#story" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-stone-900/80 hover:bg-stone-800 text-stone-200 border border-stone-700 font-medium text-base transition-all flex items-center justify-center gap-2">
+                    <span>なぜ看護師がバーを？</span>
+                </a>
+            </div>
+
+            <!-- Discussion Note Component -->
+            <div class="discussion-note mt-12 p-4 rounded-xl bg-amber-950/50 border border-amber-500/30 max-w-xl mx-auto text-left text-xs text-amber-200/90 flex gap-3">
+                <i data-lucide="info" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                <div>
+                    <strong class="font-bold text-amber-400 block mb-1">【叩き台メモ：ファーストビュー写真】</strong>
+                    現在はバーカウンター・人が集う空間のイメージ写真（ダミー）です。内装完成後、または実際のお客様やスタッフの自然な表情が伝わる写真への差し替えを想定しています。
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-stone-400 text-xs tracking-widest uppercase">
+            <span>Scroll</span>
+            <div class="w-0.5 h-8 bg-gradient-to-b from-amber-500 to-transparent animate-pulse"></div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-warm-950 relative border-t border-stone-800/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">CONCEPT</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-6">
+                    ここは、飲むだけの場所ではありません。
+                </h2>
+                <div class="w-12 h-0.5 bg-amber-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-stone-300 text-base leading-relaxed">
+                    <p>
+                        笑顔BASEは、現役の看護師がつくる小さなバーです。
+                    </p>
+                    <p>
+                        お酒を片手に、人が集まり、会話が生まれ、心地よい時間が流れる。<br>
+                        ふらっと立ち寄れる居心地の良さを何より大切にしています。
+                    </p>
+                    <p>
+                        そしてここには、少し特別な出会いがあります。<br>
+                        医療者、地域で働く人、経営者、障がいのあるクリエイターやそのご家族……。<br>
+                        普段ならすれ違うかもしれない人々が、一杯のグラスを通して自然に重なり合う場所です。
+                    </p>
+                </div>
+
+                <!-- Concept Card -->
+                <div class="p-8 rounded-2xl bg-warm-900 border border-stone-800 relative overflow-hidden group hover:border-amber-500/40 transition-all shadow-xl">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-all"></div>
+                    
+                    <h3 class="text-xl font-bold text-amber-400 mb-6 flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        笑顔BASEが大切にしたい4つのこと
+                    </h3>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">01</span>
+                            <div>
+                                <strong class="text-stone-200 block text-sm">気軽さ・安心感</strong>
+                                <span class="text-stone-400 text-xs">一人でも、お酒が得意でなくても気兼ねなく過ごせる空間。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">02</span>
+                            <div>
+                                <strong class="text-stone-200 block text-sm">立場を超えた対話</strong>
+                                <span class="text-stone-400 text-xs">職種や境遇の垣根を越えて、人と人が フラットにつながる。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">03</span>
+                            <div>
+                                <strong class="text-stone-200 block text-sm">表現と挑戦の場</strong>
+                                <span class="text-stone-400 text-xs">作品やアイデアを社会に届けるきっかけをつくる。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">04</span>
+                            <div>
+                                <strong class="text-stone-200 block text-sm">持続可能な支え合い</strong>
+                                <span class="text-stone-400 text-xs">ビジネスの仕組みを通して、看護や地域支援を長く届ける。</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="py-24 bg-warm-900 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">STORY</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-6">
+                    看護師が、バーをつくった理由。
+                </h2>
+                <p class="text-stone-400 text-sm max-w-xl mx-auto">
+                    現場で感じる人と人をつなぐ大切さと、持続可能な未来への挑戦。
+                </p>
+            </div>
+
+            <!-- Narrative Card Container -->
+            <div class="space-y-8">
+                <!-- Paragraph 1 -->
+                <div class="p-8 rounded-2xl bg-stone-900/90 border border-stone-800 space-y-4">
+                    <div class="flex items-center gap-3 text-amber-400 font-semibold text-lg">
+                        <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                        <h3>訪問看護の現場から見えた「人の支え合い」</h3>
+                    </div>
+                    <p class="text-stone-300 leading-relaxed text-sm sm:text-base">
+                        日々、訪問看護の現場に立ちながら感じているのは、人に寄り添うこと、安心できる時間をつくることの尊さです。しかし同時に、医療や訪問の現場という「限られた空間」の中だけでその価値を留めておくのはもったいないという想いもありました。
+                    </p>
+                </div>
+
+                <!-- Paragraph 2 -->
+                <div class="p-8 rounded-2xl bg-stone-900/90 border border-stone-800 space-y-4">
+                    <div class="flex items-center gap-3 text-amber-400 font-semibold text-lg">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        <h3>長く続けるための新しい循環づくり</h3>
+                    </div>
+                    <p class="text-stone-300 leading-relaxed text-sm sm:text-base">
+                        訪問看護は大切な仕事ですが、看護師1人が1日に訪問できる件数には限界があり、制度の仕組み上、自分たちで売上や条件を自由に変えられるわけではありません。
+                        事業を長く守り、質の高い看護を届けるためには、単一の事業だけでなく新たな可能性を拓く必要があります。
+                    </p>
+                </div>
+
+                <!-- Paragraph 3 -->
+                <div class="p-8 rounded-2xl bg-stone-900/90 border border-stone-800 space-y-4">
+                    <div class="flex items-center gap-3 text-amber-400 font-semibold text-lg">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                        <h3>「飲食」をきっかけに、街へひらく</h3>
+                    </div>
+                    <p class="text-stone-300 leading-relaxed text-sm sm:text-base">
+                        ただ利益を追うのではなく、私たちの強みである「人が安心できる場所をつくること」を街の中に展開したい。そう考えたときに行き着いたのが「バー」でした。飲食をきっかけに誰もが自然に集まり、語り合い、支え合える場所をつくること。それが「笑顔BASE」の原点です。
+                    </p>
+                </div>
+            </div>
+
+            <div class="discussion-note mt-8 p-4 rounded-xl bg-amber-950/50 border border-amber-500/30 text-xs text-amber-200/90 flex gap-3">
+                <i data-lucide="message-square" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                <div>
+                    <strong class="font-bold text-amber-400 block mb-1">【打ち合わせ調整可能】</strong>
+                    経営者様のメッセージ動画や、手書きのメッセージ、現場での思いが詰まったインタビュー形式への切り替えも可能です。文章のトーン（より熱く/より落ち着いた調子など）も調整できます。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-24 bg-warm-950 relative border-t border-stone-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">SCENES & USAGE</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-4">
+                    笑顔BASEでできること
+                </h2>
+                <p class="text-stone-400 text-sm max-w-xl mx-auto">
+                    気ままな一杯から、誰かの挑戦まで。様々な時間がここで交差します。
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="glass-water" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">気軽に一杯・一人飲み</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            お仕事帰りにサクッと飲みたい夜に。カウンターで静かに飲むことも、スタッフとおしゃべりすることも自由です。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-400 font-medium">誰でも歓迎</span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">医療・福祉関係者の交流</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            看護師や介護職、医療者が職場の枠を越えて本音で語り合える場。日頃の悩みの共有や情報交換に。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-400 font-medium">情報共有・ほっと一息</span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">ビジネス＆地域交流</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            経営者や地元で活躍する方が自然体で集まる空間。肩肘張らない会話から、新しいビジネスや共創がスタート。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-400 font-medium">新たなコラボレーション</span>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="palette" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">作品展示＆商品販売</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            障がいのある方の魅力あふれるアートや手作り商品を店内に展示・販売。素敵な表現と出会える場所。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-500/80 font-medium bg-amber-500/10 px-2 py-0.5 rounded w-fit">構想中・順次展開</span>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">ご家族同士の繋がり</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            障がいのある方のご家族やケアに携わる方々が集い、孤立せずに知恵や体験を分かち合える寛ぎの時間。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-500/80 font-medium bg-amber-500/10 px-2 py-0.5 rounded w-fit">オフ会・定期開催予定</span>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="calendar" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">イベント・貸切利用</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            小さなワークショップやテーマを設けたサロン、勉強会など。アットホームな規模感だからこそ届くイベントに。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-500/80 font-medium bg-amber-500/10 px-2 py-0.5 rounded w-fit">相談受付中</span>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="coffee" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">ノンアルコールで寛ぐ</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            お酒が飲めなくても安心。美味しいソフトドリンクやノンアルコールカクテル、温かいお茶をご用意。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-400 font-medium">カフェ利用感覚で</span>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="p-6 rounded-xl bg-warm-900/80 border border-stone-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <i data-lucide="rocket" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-stone-100 mb-2">新しい挑戦の実験場</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                            何かを始めてみたい人が、小さな一歩を踏み出す応援の場所。アイデアの相談や試作品の試食・展示に。
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-500/80 font-medium bg-amber-500/10 px-2 py-0.5 rounded w-fit">構想中</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="art" class="py-24 bg-warm-900 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block">ART / CHALLENGE</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 leading-tight">
+                        誰かの「やってみたい」を、<br>ここから。
+                    </h2>
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                        笑顔BASEの壁面や棚は、クリエイターや障がいのある方が手掛けたアート作品・プロダクトの発表の場でもあります。
+                    </p>
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                        ただ「支援する」のではなく、一人の表現者の魅力ある作品として紹介し、来店されたお客様とつながるきっかけをつくります。グラスを傾けながら、心揺さぶるアートとの出会いをお楽しみください。
+                    </p>
+                    <div class="pt-2">
+                        <div class="inline-flex items-center gap-2 text-xs text-amber-400/90 bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/20">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            展示作家・出品者を随時募集（オープン後）
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="lg:col-span-7 grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="rounded-xl overflow-hidden bg-stone-800 border border-stone-700/60 group relative aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&q=80&w=600" 
+                                 alt="展示アートイメージ1" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute bottom-3 left-3 text-xs text-stone-200 font-medium">オリジナルアート作品展示</span>
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-stone-800 border border-stone-700/60 group relative aspect-[1/1]">
+                            <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600" 
+                                 alt="展示アートイメージ2" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute bottom-3 left-3 text-xs text-stone-200 font-medium">ハンドメイドアロマ雑貨</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-6">
+                        <div class="rounded-xl overflow-hidden bg-stone-800 border border-stone-700/60 group relative aspect-[1/1]">
+                            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=600" 
+                                 alt="展示アートイメージ3" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute bottom-3 left-3 text-xs text-stone-200 font-medium">イラスト・ポストカード</span>
+                        </div>
+                        <div class="rounded-xl overflow-hidden bg-stone-800 border border-stone-700/60 group relative aspect-[4/3]">
+                            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=600" 
+                                 alt="展示アートイメージ4" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute bottom-3 left-3 text-xs text-stone-200 font-medium">木工工芸・陶芸作品</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="nurse-future" class="py-24 bg-warm-950 relative border-t border-stone-800/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-warm-900 via-stone-900 to-amber-950/40 border border-amber-500/20 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <span class="text-amber-400 text-xs font-serif tracking-widest uppercase block">FUTURE & VISION</span>
+                    
+                    <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 leading-snug">
+                        看護師だから、できることがある。
+                    </h2>
+
+                    <p class="text-stone-300 text-base leading-relaxed">
+                        「子どもたちがなりたい職業ランキングで、看護師・訪問看護を上位にしたい。」<br>
+                        それが私たちの大きな夢の一つです。
+                    </p>
+
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                        看護師は本来、人の生き方に深く関わる価値ある仕事です。しかし現在は過酷な環境や選択肢の少なさから、離職したり特定の分野へ偏ったりする傾向もあります。
+                    </p>
+
+                    <div class="p-6 rounded-2xl bg-warm-950/80 border border-stone-800 space-y-3 my-6">
+                        <strong class="text-amber-400 text-base block font-bold">
+                            「看護師だからできない」ではなく「看護師だからこそできる」へ。
+                        </strong>
+                        <p class="text-stone-300 text-xs sm:text-sm leading-relaxed">
+                            新しい事業に挑戦する。自分で仕事と居場所をつくる。多様な生き方・働き方を選択してしっかり稼ぐ。看護師という職種の可能性を自分たち自身が証明していきたいと考えています。
+                        </p>
+                    </div>
+
+                    <p class="text-stone-400 text-xs sm:text-sm leading-relaxed">
+                        ※経営者自身も、これからも看護の現場に立ち続けます。注射を打ち、利用者様と向き合い、看護師としての軸を大切にしながら、このバーで新しい風を吹き込んでいきます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-warm-900 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">EVENTS & COMMUNITY</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-4">
+                    イベント・活動（予定）
+                </h2>
+                <p class="text-stone-400 text-sm max-w-xl mx-auto">
+                    笑顔BASEでは、オープン後定期的に小規模な交流会や展示会を開催していきます。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Event 1 -->
+                <div class="p-6 rounded-2xl bg-stone-900 border border-stone-800 space-y-4">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium inline-block">構想中</span>
+                    <h3 class="text-lg font-bold text-stone-200">医療・福祉ナイト</h3>
+                    <p class="text-stone-400 text-xs leading-relaxed">
+                        看護師、介護士、セラピストなどがカジュアルにお酒を楽しめる夜。現場の悩みから将来のキャリアまで気軽にトーク。
+                    </p>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="p-6 rounded-2xl bg-stone-900 border border-stone-800 space-y-4">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium inline-block">構想中</span>
+                    <h3 class="text-lg font-bold text-stone-200">地域ビジネス交流カフェ＆バー</h3>
+                    <p class="text-stone-400 text-xs leading-relaxed">
+                        福岡の経営者やフリーランス、地域で働く人が集う交流会。福祉×ビジネスの新しいアイデアのタネ探しにも。
+                    </p>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="p-6 rounded-2xl bg-stone-900 border border-stone-800 space-y-4">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium inline-block">構想中</span>
+                    <h3 class="text-lg font-bold text-stone-200">ご家族のほっと一息サロン</h3>
+                    <p class="text-stone-400 text-xs leading-relaxed">
+                        障害のある方のご家族やケアを担う方向けの交流会。肩の力を抜いて本音を話し合える安心の空間を提供。
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-stone-400 text-xs">
+                    ※具体的な開催スケジュールや予約方法はオープン確定後にInstagram等でお知らせいたします。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-warm-950 relative border-t border-stone-800/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">FOR FIRST VISITORS</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-4">
+                    初めての方へ（FAQ）
+                </h2>
+                <p class="text-stone-400 text-sm">
+                    来店前の不安を少しでもなくしていただけるよう、よくある質問をまとめました。
+                </p>
+            </div>
+
+            <div class="space-y-4" id="faq-accordion">
+                <!-- FAQ Item 1 -->
+                <div class="rounded-xl bg-warm-900 border border-stone-800 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-stone-200 hover:text-amber-400 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <span class="text-amber-400 font-serif">Q.</span>
+                            一人でも行っても大丈夫ですか？
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6 text-stone-400 text-sm leading-relaxed border-t border-stone-800/50 pt-4">
+                        もちろんです！一人で静かに過ごしたい夜も、誰かと少し話したい夜も大歓迎です。カウンター席もございますので気兼ねなくお越しください。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="rounded-xl bg-warm-900 border border-stone-800 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-stone-200 hover:text-amber-400 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <span class="text-amber-400 font-serif">Q.</span>
+                            医療関係者や 福祉関係者じゃなくても入れますか？
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6 text-stone-400 text-sm leading-relaxed border-t border-stone-800/50 pt-4">
+                        もちろんです。普通にバーとしてお酒や会話を楽しみたいすべてのお客様に開かれたお店です。専門知識なども一切不要ですので安心してください。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="rounded-xl bg-warm-900 border border-stone-800 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-stone-200 hover:text-amber-400 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <span class="text-amber-400 font-serif">Q.</span>
+                            お酒が飲めなくても利用できますか？
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6 text-stone-400 text-sm leading-relaxed border-t border-stone-800/50 pt-4">
+                        はい！ソフトドリンクやノンアルコールカクテル、温かいお茶なども多数ご用意しております。お酒が得意でない方もぜひゆったりお過ごしください。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="rounded-xl bg-warm-900 border border-stone-800 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-stone-200 hover:text-amber-400 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <span class="text-amber-400 font-serif">Q.</span>
+                            予約は必要ですか？
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6 text-stone-400 text-sm leading-relaxed border-t border-stone-800/50 pt-4">
+                        ご予約なしの飛び込み来店も歓迎しております。グループでのご利用や特定のイベント開催日に関しましては事前のご連絡やご予約を推奨する場合がございます。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="rounded-xl bg-warm-900 border border-stone-800 overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-stone-200 hover:text-amber-400 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <span class="text-amber-400 font-serif">Q.</span>
+                            車椅子や車での来店はできますか？
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-stone-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6 text-stone-400 text-sm leading-relaxed border-t border-stone-800/50 pt-4">
+                        店舗はフラットな空間設計を考慮しております。詳しいバリアフリー設備や周辺コインパーキング案内につきましては店舗確定後にご案内いたします。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="info" class="py-24 bg-warm-900 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 text-xs font-serif tracking-widest uppercase block mb-2">STORE INFO</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 mb-4">
+                    店舗情報
+                </h2>
+                <p class="text-stone-400 text-sm">
+                    福岡市内にオープン予定（※詳細な場所・日時は調整中）
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Info List Table -->
+                <div class="p-8 rounded-2xl bg-stone-900 border border-stone-800 space-y-6">
+                    <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                        <span class="text-stone-400 text-sm font-medium">店名</span>
+                        <span class="text-stone-100 font-bold text-lg">笑顔BASE（Egao BASE）</span>
+                    </div>
+
+                    <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                        <span class="text-stone-400 text-sm font-medium">所在地</span>
+                        <span class="text-amber-400 text-sm bg-amber-500/10 px-3 py-1 rounded">福岡市内（※詳細住所は準備中）</span>
+                    </div>
+
+                    <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                        <span class="text-stone-400 text-sm font-medium">営業時間</span>
+                        <span class="text-stone-300 text-sm">未設定（調整中）</span>
+                    </div>
+
+                    <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                        <span class="text-stone-400 text-sm font-medium">定休日</span>
+                        <span class="text-stone-300 text-sm">未設定（調整中）</span>
+                    </div>
+
+                    <div class="border-b border-stone-800 pb-4 flex items-center justify-between">
+                        <span class="text-stone-400 text-sm font-medium">電話番号</span>
+                        <span class="text-stone-300 text-sm">未設定</span>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#" class="w-full sm:w-auto flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium text-xs flex items-center justify-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                            <span>公式Instagram (準備中)</span>
+                        </a>
+                        <a href="#" class="w-full sm:w-auto flex-1 py-3 px-4 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium text-xs flex items-center justify-center gap-2 border border-stone-700 transition-colors">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>お問い合わせ (準備中)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder Block -->
+                <div class="p-8 rounded-2xl bg-stone-900 border border-stone-800 text-center space-y-6 flex flex-col items-center justify-center min-h-[380px] relative overflow-hidden">
+                    <div class="w-16 h-16 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                        <i data-lucide="map-pin" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-stone-200 font-bold text-lg mb-2">アクセスマップ（Google Map）</h3>
+                        <p class="text-stone-400 text-xs max-w-xs mx-auto leading-relaxed">
+                            出店店舗の物件確定後、こちらに埋め込みマップおよびアクセス（最寄り駅・バス停からの順路）を掲載いたします。
+                        </p>
+                    </div>
+                    <div class="p-3 rounded-lg bg-stone-950/80 border border-stone-800 text-amber-400 text-xs font-mono">
+                        [ MAP EMBED AREA - PENDING ADDRESS ]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-warm-950 relative border-t border-stone-800/80 text-center">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 space-y-8">
+            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="smile" class="w-6 h-6"></i>
+            </div>
+
+            <h2 class="text-2xl sm:text-4xl font-bold text-stone-100 leading-tight">
+                難しいことは考えず、<br class="sm:hidden">まずは一杯飲みに来てください。
+            </h2>
+
+            <p class="text-stone-300 text-base leading-relaxed max-w-2xl mx-auto">
+                笑顔BASEは、想いを持ったバーですが、一番大切なのはあなたがここで心地よく美味しい時間を過ごすことです。<br>
+                扉を開けて、グラスを手に取れば、そこから自然と新しい笑顔とつながりが始まります。
+            </p>
+
+            <p class="text-amber-400 font-bold text-xl tracking-wider pt-2">
+                笑顔BASEでお待ちしています。
+            </p>
+
+            <div class="pt-6">
+                <a href="#info" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-warm-950 font-bold text-base transition-all shadow-xl hover:shadow-amber-500/20">
+                    <span>オープン情報を受け取る</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-warm-950 border-t border-stone-900 py-12 text-stone-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full bg-amber-500 flex items-center justify-center text-warm-950 font-bold text-xs">
+                    笑顔
+                </div>
+                <span class="text-stone-300 font-bold">笑顔BASE - EGAO BASE BAR</span>
+            </div>
+
+            <p class="text-center sm:text-right">
+                &copy; 2026 笑顔BASE. All rights reserved. <br class="sm:hidden">
+                <span class="text-stone-600">（本サイトはホームページ構成案・叩き台第1案です）</span>
+            </p>
+        </div>
+    </footer>
+
+    <div id="discussion-bar" class="fixed bottom-4 right-4 z-50 max-w-sm w-full bg-warm-900/95 border border-amber-500/40 rounded-2xl shadow-2xl p-4 backdrop-blur-md text-xs transition-all duration-300">
+        <div class="flex items-center justify-between border-b border-stone-800 pb-2 mb-2">
+            <span class="font-bold text-amber-400 flex items-center gap-1.5">
+                <i data-lucide="message-square-code" class="w-4 h-4"></i>
+                ヒアリング・打ち合わせ用メモ
+            </span>
+            <button onclick="toggleDiscussionNotes()" class="text-stone-400 hover:text-stone-200">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+        <p class="text-stone-300 leading-relaxed mb-3">
+            このWebサイトは経営者様との打ち合わせ用の【第1案】です。コンセプトの表現、トーン、未確定項目の出し方についてご意見をお聞かせください。
+        </p>
+        <div class="flex items-center justify-between text-[11px] text-stone-400 bg-stone-950/60 p-2 rounded-lg">
+            <span>注釈表示：<strong id="status-text" class="text-amber-400">ON</strong></span>
+            <span class="text-stone-500">クリックで切替可</span>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // Toggle Mobile Navigation Drawer
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // FAQ Accordion Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('[data-lucide="chevron-down"]');
+            
+            // Toggle visibility
+            const isHidden = content.classList.contains('hidden');
+            
+            if (isHidden) {
+                content.classList.remove('hidden');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Toggle Discussion Notes (打ち合わせメモ表示切替)
+        let showNotes = true;
+        function toggleDiscussionNotes() {
+            showNotes = !showNotes;
+            const notes = document.querySelectorAll('.discussion-note');
+            const noteToggleText = document.getElementById('note-toggle-text');
+            const statusText = document.getElementById('status-text');
+
+            notes.forEach(note => {
+                if (showNotes) {
+                    note.classList.remove('hidden');
+                } else {
+                    note.classList.add('hidden');
+                }
+            });
+
+            if (noteToggleText) {
+                noteToggleText.textContent = showNotes ? '打ち合わせメモ: 表示中' : '打ち合わせメモ: 非表示';
+            }
+            if (statusText) {
+                statusText.textContent = showNotes ? 'ON' : 'OFF';
+            }
+        }
+    </script>
+</body>
+</html>

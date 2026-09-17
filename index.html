@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>笑顔BASE｜福岡・井尻の小さなバー</title>
+<meta name="description" content="笑顔BASEは、福岡市南区井尻にある小さなバーです。18:00〜1:00。一人でも、仲間とでも、気軽に一杯どうぞ。">
+<!-- 写真はUnsplash（商用利用可）のイメージ写真を外部読込。公開前に実写真へ差し替え。 -->
+<!-- 確定情報：住所（南区井尻1-36-8）／営業時間（18:00〜1:00）。 -->
+<!-- 以下は打ち合わせ用の仮設定。要確認：定休日（不定休）／予約方法／ノンアル内容／決済方法／席数／駐車場／イベント内容・日時・料金（SAMPLE表示）。 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE7; --paper-2:#EAE1D4; --ink:#241F1B; --ink-soft:#645A50;
+  --walnut:#5B3F2C; --lamp:#D8913A; --lamp-soft:#F0D0A0;
+  --night:#1C1714; --night-2:#262019; --night-ink:#F0E7D9; --line:#D8CDBC;
+  --ph-a:#CDB9A1; --ph-b:#9C7F63;
+  --serif:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1B1714; --paper-2:#241E1A; --ink:#F0E7D9; --ink-soft:#B6AA9B;
+    --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
+    --night:#14100E; --night-2:#1E1815; --night-ink:#F0E7D9; --line:#3B332C;
+    --ph-a:#4A3D31; --ph-b:#2F261F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1B1714; --paper-2:#241E1A; --ink:#F0E7D9; --ink-soft:#B6AA9B;
+  --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
+  --night:#14100E; --night-2:#1E1815; --night-ink:#F0E7D9; --line:#3B332C;
+  --ph-a:#4A3D31; --ph-b:#2F261F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}
+.wrap{width:min(1080px,100% - 40px);margin-inline:auto}
+.narrow{width:min(640px,100% - 40px);margin-inline:auto}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.75rem,4.8vw,2.7rem);line-height:1.5;letter-spacing:.055em;margin-bottom:1.8rem;text-wrap:pretty}
+p+p{margin-top:1.15em}
+section{padding-block:clamp(88px,13vw,150px)}
+
+/* セクション見出しのラベル（照明のような小さな灯り） */
+@media (max-width:480px){h2{font-size:clamp(1.5rem,6.4vw,1.9rem);letter-spacing:.03em}}
+.eyebrow{display:flex;align-items:center;gap:.8em;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--walnut);margin-bottom:1.1rem}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.55;flex:none}
+.art .eyebrow{color:var(--lamp)}
+.draft{display:inline-block;font-size:.72rem;font-weight:500;padding:.1em .7em;border-radius:99px;border:1px solid currentColor;color:var(--walnut);vertical-align:middle;letter-spacing:.05em;white-space:nowrap}
+
+/* 写真プレースホルダー */
+.ph{position:relative;background:
+  radial-gradient(circle at 70% 30%,var(--lamp-soft),transparent 55%),
+  linear-gradient(160deg,var(--ph-a),var(--ph-b));
+  border-radius:3px;overflow:hidden;display:flex;align-items:flex-end}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* 写真に暖色の灯りをのせ、店内の照明のような統一感を出す */
+.ph::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(28,20,14,.10),rgba(28,20,14,.34));
+  mix-blend-mode:multiply}
+.ph::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 80% at 72% 18%,rgba(232,168,74,.26),transparent 62%)}
+.ph span{position:relative;z-index:2;font-size:.72rem;color:#F6EEE2;background:rgba(24,17,12,.6);backdrop-filter:blur(2px);padding:.35em .8em;margin:12px;border-radius:3px;line-height:1.5}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{display:flex;align-items:center;gap:.55em;font-family:var(--serif);font-weight:700;font-size:1.2rem;text-decoration:none;letter-spacing:.1em}
+.logo svg{width:28px;height:28px}
+nav ul{display:flex;gap:1.6rem;list-style:none;font-size:.85rem}
+nav a{text-decoration:none;color:var(--ink-soft)}
+nav a:hover{color:var(--ink)}
+@media (max-width:760px){nav{display:none}}
+
+/* hero */
+.hero{padding:0;position:relative;overflow:hidden}
+.hero .ph{height:min(92vh,820px);border-radius:0}
+.hero .ph::before{background:
+  linear-gradient(to top,rgba(18,12,8,.92) 0%,rgba(18,12,8,.74) 38%,rgba(18,12,8,.5) 70%,rgba(18,12,8,.42) 100%);
+  mix-blend-mode:normal}
+.hero-copy{position:absolute;inset:auto 0 0 0;z-index:3;color:#FBF6EE;padding-bottom:clamp(56px,9vw,104px)}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,6.4vw,3.9rem);line-height:1.42;letter-spacing:.055em;max-width:15em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+.hero .sub{margin-top:1.5rem;font-size:clamp(1rem,2.4vw,1.25rem);line-height:1.9;opacity:.94}
+.hero .meta{margin-top:1.6rem;padding-top:1.4rem;font-size:.82rem;letter-spacing:.16em;opacity:.85;position:relative}
+.hero .meta::before{content:"";position:absolute;top:0;left:0;width:56px;height:1px;background:rgba(246,238,226,.45)}
+.hero .btn{display:flex;width:fit-content}
+.btn{display:inline-flex;align-items:center;gap:.6em;margin-top:2.2rem;padding:.95em 2em;border-radius:99px;background:var(--lamp);color:#241708;font-weight:700;text-decoration:none;font-size:.95rem;box-shadow:0 6px 28px rgba(216,145,58,.3);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(216,145,58,.42)}
+.hero .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .ph span{position:absolute;top:0;right:0;z-index:4}
+/* ランプの灯りのゆらぎ */
+.glow{position:absolute;z-index:2;width:420px;height:420px;right:10%;top:10%;border-radius:50%;background:radial-gradient(circle,rgba(243,190,110,.5),transparent 66%);animation:breathe 7s ease-in-out infinite;pointer-events:none}
+@keyframes breathe{50%{opacity:.62;transform:scale(1.07)}}
+/* スクロールを促す細い線 */
+.scroll-cue{position:absolute;left:50%;bottom:18px;z-index:3;width:1px;height:46px;background:linear-gradient(to bottom,transparent,rgba(246,238,226,.7));animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{50%{opacity:.25;transform:scaleY(.6)}}
+@media (max-width:760px){.scroll-cue{display:none}}
+
+/* intro（まずは、普通に一杯。） */
+.intro{background:var(--paper-2)}
+.intro .narrow{text-align:center}
+.intro .eyebrow{justify-content:center}
+.intro .eyebrow::before{display:none}
+.intro p{font-size:1.06rem}
+.intro .place{display:inline-block;margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid var(--line);font-size:.88rem;color:var(--ink-soft);letter-spacing:.14em}
+
+/* about */
+.about .narrow{text-align:left;width:min(720px,100% - 40px)}
+.about .lead{font-family:var(--serif);font-size:clamp(1.15rem,2.6vw,1.35rem);line-height:1.85;color:var(--walnut);margin-bottom:.4rem}
+
+/* scenes（通常バーとしての利用シーン） */
+.scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,32px);margin-bottom:clamp(56px,8vw,88px)}
+@media (max-width:900px){.scenes{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.scenes{grid-template-columns:1fr}}
+.scene .ph{aspect-ratio:3/2;margin-bottom:1.1rem;transition:transform .45s ease}
+.scene:hover .ph{transform:translateY(-4px)}
+.scene h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:.4rem}
+.scene p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
+.sub-head{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.06em;margin-bottom:1.4rem;padding-top:clamp(40px,6vw,56px);border-top:1px solid var(--line)}
+
+/* story */
+.story{background:var(--paper-2)}
+.story-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,80px);align-items:start}
+.story .ph{aspect-ratio:4/5;position:sticky;top:90px}
+.story h3{font-family:var(--serif);font-size:1.18rem;margin:2.6rem 0 .7rem;color:var(--walnut);padding-left:.9em;border-left:2px solid var(--lamp)}
+.story blockquote{font-family:var(--serif);font-size:clamp(1.25rem,3.1vw,1.6rem);line-height:1.75;padding:1.6rem 0;margin:2.8rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--walnut)}
+@media (max-width:760px){.story-grid{grid-template-columns:1fr}.story .ph{position:static;aspect-ratio:4/3}}
+
+/* can do */
+.cando-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--line)}
+.cando-list li{list-style:none;padding:1.7rem 1.6rem 1.9rem 0;border-bottom:1px solid var(--line);transition:background .25s}
+.cando-list li:hover{background:color-mix(in srgb,var(--lamp) 7%,transparent)}
+.cando-list h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
+.cando-list p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
+.note{font-size:.82rem;color:var(--ink-soft);margin-top:1.4rem}
+
+/* art */
+.art{background:var(--night);color:var(--night-ink)}
+.art .draft{color:var(--lamp)}
+.art .lead-copy{max-width:34em;margin-bottom:clamp(44px,6vw,64px)}
+.art .lead-copy p{color:color-mix(in srgb,var(--night-ink) 82%,transparent)}
+/* 作品を主役に。作家名を作品と同格で並べる */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,28px)}
+.work .ph{aspect-ratio:4/5;margin-bottom:.9rem;transition:transform .45s ease}
+.work:hover .ph{transform:translateY(-5px)}
+.work h3{font-family:var(--serif);font-size:1.05rem;font-weight:500;letter-spacing:.04em}
+.work .artist{display:block;font-size:.8rem;color:var(--lamp);letter-spacing:.1em;margin-top:.35rem}
+.art .note{color:color-mix(in srgb,var(--night-ink) 62%,transparent);margin-top:2.4rem}
+@media (max-width:760px){.works{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.works{grid-template-columns:1fr}}
+
+/* nurse */
+.nurse-grid{display:grid;grid-template-columns:6fr 5fr;gap:clamp(32px,6vw,80px);align-items:center}
+.nurse .ph{aspect-ratio:1}
+.nurse ul{list-style:none;margin:1.6rem 0;display:flex;flex-wrap:wrap;gap:.5rem}
+.nurse ul li{border:1px solid var(--line);border-radius:99px;padding:.3em 1em;font-size:.9rem}
+@media (max-width:760px){.nurse-grid{grid-template-columns:1fr}.nurse .ph{order:-1;aspect-ratio:4/3}}
+
+/* events */
+.events{background:var(--paper-2)}
+.event-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,28px)}
+.event-card{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.event-card .ph{aspect-ratio:16/9;border-radius:0}
+.event-body{padding:1.4rem 1.4rem 1.6rem}
+.event-card h3{font-family:var(--serif);font-size:1.15rem;line-height:1.6;margin:.5rem 0 .8rem}
+.event-meta{display:grid;grid-template-columns:4.5em 1fr;row-gap:.3rem;font-size:.88rem;color:var(--ink-soft)}
+.event-meta dt{font-weight:500;padding:0;border:0}
+.event-meta dd{padding:0;border:0}
+.sample-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.2em .8em;border-radius:99px;background:var(--lamp-soft);color:var(--walnut)}
+
+/* faq */
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-of-type{border-top:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:1.4rem 2.4rem 1.4rem 0;font-weight:700;position:relative;transition:color .2s}
+.faq summary:hover{color:var(--walnut)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:.4rem;top:50%;transform:translateY(-50%);font-size:1.4rem;font-weight:400;color:var(--walnut);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq details p{padding-bottom:1.4rem;color:var(--ink-soft)}
+
+/* info */
+.info{border-top:1px solid var(--line)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,72px)}
+dl{display:grid;grid-template-columns:7em 1fr;row-gap:0}
+dt,dd{padding:.9rem 0;border-bottom:1px solid var(--line)}
+dt{font-weight:700;font-size:.9rem}
+dd.tbd{color:var(--ink-soft)}
+.map{min-height:300px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.map iframe{display:block;width:100%;height:100%;min-height:300px;border:0;filter:saturate(.9)}
+dd small{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:.2rem}
+@media (max-width:760px){.info-grid{grid-template-columns:1fr}}
+
+/* closing */
+.closing{text-align:center;position:relative;overflow:hidden;background:var(--paper-2)}
+.closing::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 0%,color-mix(in srgb,var(--lamp) 16%,transparent),transparent 70%)}
+.closing .narrow{position:relative}
+.closing .smile{width:72px;height:72px;margin:0 auto 1.8rem;color:var(--lamp)}
+.closing p.big{font-family:var(--serif);font-size:clamp(1.4rem,4vw,2rem);line-height:1.7}
+.closing .addr{margin-top:2.4rem;padding-top:2rem;border-top:1px solid var(--line);font-size:.95rem;line-height:2;color:var(--ink-soft)}
+.closing .addr strong{display:block;font-family:var(--serif);font-size:1.15rem;color:var(--ink);letter-spacing:.1em;margin-bottom:.4rem}
+
+footer{background:var(--night);color:var(--night-ink);padding:2.4rem 0;font-size:.8rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;opacity:.8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="笑顔BASE トップへ">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 18.5c1.6 3 4 4.5 6.5 4.5s4.9-1.5 6.5-4.5" stroke="#E4A03C" stroke-width="2.2" stroke-linecap="round"/><circle cx="11.5" cy="13" r="1.4" fill="currentColor"/><circle cx="20.5" cy="13" r="1.4" fill="currentColor"/></svg>
+      笑顔BASE
+    </a>
+    <nav aria-label="ページ内メニュー">
+      <ul>
+        <li><a href="#about">笑顔BASEとは</a></li>
+        <li><a href="#story">つくった理由</a></li>
+        <li><a href="#cando">できること</a></li>
+        <li><a href="#events">イベント</a></li>
+        <li><a href="#first">初めての方へ</a></li>
+        <li><a href="#info">店舗情報</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ① ファーストビュー -->
+<section class="hero" aria-label="メインビジュアル">
+  <div class="ph"><img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=2000&q=75" alt="木のカウンターと暖色の照明があるバーの店内（イメージ）"><span>イメージ写真（差し替え予定）</span></div>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="scroll-cue" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <div class="wrap">
+      <h1>看護の外にも、<br>安心と笑顔が生まれる場所を。</h1>
+      <p class="sub">飲む。話す。つながる。<br>ここから、何かが始まる。</p>
+      <p class="meta">福岡・井尻｜18:00〜1:00</p>
+      <a class="btn" href="#about">笑顔BASEについて</a>
+    </div>
+  </div>
+</section>
+
+<!-- ② まずは、普通に一杯。 -->
+<section class="intro">
+  <div class="narrow">
+    <p class="eyebrow">WELCOME</p>
+    <h2>まずは、普通に一杯。</h2>
+    <p>仕事帰りに、ふらっと。<br>一人でゆっくり飲みたい夜も。<br>誰かと話したい夜も。<br>仲間と楽しく過ごしたい夜も。</p>
+    <p>笑顔BASEは、井尻にある小さなバーです。<br>18時から深夜1時まで。</p>
+    <p>難しい理由は必要ありません。<br>まずは気軽に、一杯飲みに来てください。</p>
+    <p class="place">福岡市南区井尻1丁目36-8｜18:00〜1:00</p>
+  </div>
+</section>
+
+<!-- ③ 笑顔BASEとは -->
+<section class="about" id="about">
+  <div class="narrow">
+    <p class="eyebrow">ABOUT</p>
+    <h2>ここは、<br>飲むだけの場所ではありません。</h2>
+    <p class="lead">笑顔BASEは、看護師がつくる小さなバーです。</p>
+    <p>一杯飲みながら、隣の人と話す。<br>知らなかった人と、知り合う。<br>そこから、新しいことが始まる。</p>
+    <p>医療の人も、そうでない人も。<br>一人でも、仲間とでも。<br>気軽に立ち寄れる場所にしたいと思っています。</p>
+  </div>
+</section>
+
+<!-- ③ なぜ看護師がバーをつくるのか -->
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1651153623469-f92d241ec571?auto=format&fit=crop&w=1200&q=70" alt="テーブルでくつろぐ人（イメージ）" loading="lazy"><span>イメージ写真：経営者の写真に差し替え予定</span></div>
+    <div>
+      <p class="eyebrow">STORY</p>
+      <h2>看護師が、<br>バーをつくった理由。</h2>
+      <p>わたしは、訪問看護の仕事をしています。<br>人に寄り添う。支える。安心できる関係をつくる。<br>その大切さを、毎日の現場で感じてきました。</p>
+
+      <h3>好きな仕事を、長く続けるために</h3>
+      <p>訪問看護は、人が人を支える仕事です。<br>でも、一人が一日に回れる件数には限りがあります。<br>報酬も、自分たちで決められるものではありません。</p>
+      <p>この仕事を長く続けるには、新しい柱が必要。<br>そう考えるようになりました。</p>
+
+      <h3>興味のないことは、やりたくなかった</h3>
+      <p>ただ、お金のためだけに、<br>気持ちの入らない事業を始めたくはありませんでした。</p>
+      <p>考えてたどり着いたのが、<br>「人が集まる場所をつくる」ということです。</p>
+
+      <blockquote>現場で大事にしてきた安心を、<br>病院や訪問先の外にも。</blockquote>
+
+      <p>お酒があれば、人は自然に集まれます。<br>立場が違っても、話せばつながれる。<br>つながれば、何かが動き出す。<br>笑顔BASEは、そのための場所です。</p>
+      <!-- 経営者ヒアリング後に本人の言葉へ差し替え -->
+    </div>
+  </div>
+</section>
+
+<!-- ④ この場所でできること -->
+<section class="cando" id="cando">
+  <div class="wrap">
+    <p class="eyebrow">WHAT YOU CAN DO</p>
+    <h2>この場所で、できること。</h2>
+
+    <div class="scenes">
+      <div class="scene">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=70" alt="カウンターに置かれたグラス（イメージ）" loading="lazy"></div>
+        <h3>仕事帰りに一杯</h3>
+        <p>一日の終わりに、気軽に立ち寄る。それだけで十分です。</p>
+      </div>
+      <div class="scene">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=70" alt="一人でカウンターに座る様子（イメージ）" loading="lazy"></div>
+        <h3>一人でゆっくり</h3>
+        <p>一人でも入りやすく。静かに飲む時間も、大切にします。</p>
+      </div>
+      <div class="scene">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=800&q=70" alt="仲間と乾杯する様子（イメージ）" loading="lazy"></div>
+        <h3>仲間と一緒に</h3>
+        <p>友人や仕事仲間と、話しながら過ごす夜に。</p>
+      </div>
+      <div class="scene">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=70" alt="カウンターでの会話（イメージ）" loading="lazy"></div>
+        <h3>新しい人との出会い</h3>
+        <p>カウンターでの会話から、知らなかった人とつながる。</p>
+      </div>
+    </div>
+
+    <h3 class="sub-head">そして、笑顔BASEならでは。</h3>
+    <ul class="cando-list">
+      <li><h3>医療関係者の交流 <span class="draft">構想</span></h3><p>看護・介護・福祉の仲間が、職場の外で話せる時間。</p></li>
+      <li><h3>ビジネス交流 <span class="draft">構想</span></h3><p>経営者や地域で働く人が、肩書きを置いて話せる場。</p></li>
+      <li><h3>イベント開催 <span class="draft">構想</span></h3><p>小さな集まりや勉強会に使える場所を目指します。</p></li>
+      <li><h3>作品展示 <span class="draft">構想</span></h3><p>店内の壁やカウンターで、作品を見てもらう。</p></li>
+      <li><h3>商品販売 <span class="draft">構想</span></h3><p>つくった人の商品を、ここから届ける。</p></li>
+      <li><h3>家族会・オフ会 <span class="draft">構想</span></h3><p>同じ思いを持つ人同士が、ゆっくり話せる時間。</p></li>
+    </ul>
+    <p class="note">「構想」の内容は、現在準備・検討中です。決まり次第お知らせします。</p>
+  </div>
+</section>
+
+<!-- ⑤ ART / CHALLENGE -->
+<section class="art" id="art">
+  <div class="wrap">
+    <p class="eyebrow">ART / CHALLENGE</p>
+    <h2>誰かの「やってみたい」を、<br>ここから。</h2>
+    <div class="lead-copy">
+      <p>絵を描く人。ものをつくる人。<br>その作品を、見て、手に取って、気に入ってもらう。</p>
+      <p>ここは、作品と、つくった人に出会える場所です。<br>つくり手が活躍できる場所にしていきたいと思っています。</p>
+    </div>
+    <!-- 作品・作家名は実際の展示が決まり次第、実データへ差し替え -->
+    <div class="works">
+      <div class="work">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=70" alt="手づくりの器（イメージ）" loading="lazy"><span>作品イメージ</span></div>
+        <h3>うつわ</h3><span class="artist">作家名</span>
+      </div>
+      <div class="work">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=800&q=70" alt="色彩豊かな抽象画（イメージ）" loading="lazy"><span>作品イメージ</span></div>
+        <h3>絵画</h3><span class="artist">作家名</span>
+      </div>
+      <div class="work">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1577576223085-3eb295cd414f?auto=format&fit=crop&w=800&q=70" alt="手仕事の作品（イメージ）" loading="lazy"><span>作品イメージ</span></div>
+        <h3>手仕事のもの</h3><span class="artist">作家名</span>
+      </div>
+    </div>
+    <p class="note">展示・販売する作品は準備中です。<span class="draft">構想</span><br>出展のご相談も、お気軽にお声がけください。</p>
+  </div>
+</section>
+
+<!-- ⑥ 看護師という仕事の可能性 -->
+<section class="nurse" id="nurse">
+  <div class="wrap nurse-grid">
+    <div>
+      <p class="eyebrow">NURSE</p>
+      <h2>看護師だから、<br>できることがある。</h2>
+      <p>「看護師だからできない」<br>そう思われることが、まだ多いかもしれません。</p>
+      <p>でも、人の話を聴く。安心をつくる。人をつなぐ。<br>それは、看護の現場で身についた力です。</p>
+      <ul aria-label="看護師の新しい選択肢">
+        <li>新しい事業に挑戦できる</li>
+        <li>自分で仕事をつくれる</li>
+        <li>しっかり稼げる</li>
+        <li>人生の選択肢を広げられる</li>
+      </ul>
+      <p>わたしはこれからも現場に立ちます。<br>注射もするし、利用者さんとも向き合う。<br>看護師のまま、新しいことに挑戦します。</p>
+      <p>いつか、子どもたちが「なりたい」と思う仕事に。<br>その姿を、この店から見せていきたいです。</p>
+    </div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1653919222330-b6face80755d?auto=format&fit=crop&w=1200&q=70" alt="バーのカウンター（イメージ）" loading="lazy"><span>イメージ写真：看護の現場／カウンターに立つ姿に差し替え予定</span></div>
+  </div>
+</section>
+
+<!-- ⑦ イベント・活動 -->
+<section class="events" id="events">
+  <div class="wrap">
+    <p class="eyebrow">EVENT</p>
+    <h2>イベント・活動</h2>
+    <p class="note" style="margin-top:-.8rem;margin-bottom:2.4rem">以下は表示イメージのサンプルです。内容・日時・参加費は決まり次第、こことInstagramでお知らせします。</p>
+    <!-- イベント確定後、この event-card を実データに差し替え -->
+    <div class="event-list">
+      <article class="event-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=70" alt="交流会の様子（イメージ）" loading="lazy"></div>
+        <div class="event-body">
+          <span class="sample-tag">SAMPLE</span>
+          <h3>医療・介護・福祉の交流会</h3>
+          <dl class="event-meta">
+            <dt>日時</dt><dd>10月○日（○）19:00〜</dd>
+            <dt>参加費</dt><dd>○,○○○円（1ドリンク付）</dd>
+            <dt>定員</dt><dd>○名</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="event-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=70" alt="ビジネス交流会の様子（イメージ）" loading="lazy"></div>
+        <div class="event-body">
+          <span class="sample-tag">SAMPLE</span>
+          <h3>ビジネス交流会</h3>
+          <dl class="event-meta">
+            <dt>日時</dt><dd>11月○日（○）19:30〜</dd>
+            <dt>参加費</dt><dd>○,○○○円（1ドリンク付）</dd>
+            <dt>定員</dt><dd>○名</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="event-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1594732832278-abd644401426?auto=format&fit=crop&w=900&q=70" alt="壁に展示された作品（イメージ）" loading="lazy"></div>
+        <div class="event-body">
+          <span class="sample-tag">SAMPLE</span>
+          <h3>アート展示｜作品と、つくった人に会える夜</h3>
+          <dl class="event-meta">
+            <dt>期間</dt><dd>11月○日〜○日</dd>
+            <dt>参加費</dt><dd>入場無料（ご注文のみ）</dd>
+            <dt>会場</dt><dd>店内カウンター・壁面</dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ 初めての方へ -->
+<section class="faq" id="first">
+  <div class="narrow">
+    <p class="eyebrow">FAQ</p>
+    <h2>初めての方へ</h2>
+    <details><summary>一人でも大丈夫ですか？</summary><p>もちろんです。一人で来ても過ごしやすい店にしたいと考えています。</p></details>
+    <details><summary>初めてでも大丈夫ですか？</summary><p>大丈夫です。常連さんだけの店にはしません。</p></details>
+    <details><summary>医療関係者じゃなくても大丈夫ですか？</summary><p>大丈夫です。お客さまの職業は問いません。普通のバーとして使ってください。</p></details>
+    <details><summary>お酒を飲めなくても大丈夫ですか？</summary><p>大丈夫です。お酒を飲まない方にも楽しんでいただけるノンアルコールドリンクをご用意する予定です。</p></details>
+    <details><summary>予約は必要ですか？</summary><p>予約なしでもご来店いただけます。グループでのご利用は、事前にお問い合わせいただけると助かります。</p></details>
+    <details><summary>営業時間は？</summary><p>18:00〜1:00です。定休日は不定休です。</p></details>
+    <details><summary>場所はどこですか？</summary><p>〒811-1302 福岡県福岡市南区井尻1丁目36-8です。西鉄・井尻駅から歩いてお越しいただけます。</p></details>
+    <details><summary>駐車場はありますか？</summary><p>お車でお越しの際は、周辺のコインパーキングをご利用ください。</p></details>
+  </div>
+</section>
+
+<!-- ⑨ 店舗情報 -->
+<section class="info" id="info">
+  <div class="wrap">
+    <p class="eyebrow">INFORMATION</p>
+    <h2>店舗情報</h2>
+    <div class="info-grid">
+      <dl>
+        <dt>店名</dt><dd>笑顔BASE</dd>
+        <dt>住所</dt><dd>〒811-1302<br>福岡県福岡市南区井尻1丁目36-8</dd>
+        <dt>営業時間</dt><dd>18:00〜1:00</dd>
+        <dt>定休日</dt><dd>不定休</dd>
+        <dt>席</dt><dd>カウンターを中心とした、小さなバー</dd>
+        <dt>予約</dt><dd>予約なしでもご利用いただけます<small>グループでのご利用は事前にお問い合わせください</small></dd>
+        <dt>支払い</dt><dd>現金／クレジットカード／QRコード決済</dd>
+        <dt>駐車場</dt><dd>周辺のコインパーキングをご利用ください</dd>
+        <dt>電話番号</dt><dd class="tbd">準備中</dd>
+        <dt>Instagram</dt><dd class="tbd">準備中</dd>
+      </dl>
+      <div class="map">
+        <iframe src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%97%E5%8C%BA%E4%BA%95%E5%B0%BB1%E4%B8%81%E7%9B%AE36-8&hl=ja&z=17&output=embed" title="笑顔BASE 所在地の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ 最後のメッセージ -->
+<section class="closing">
+  <div class="narrow">
+    <svg class="smile" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 17c1.9 3.8 4.9 5.8 8 5.8s6.1-2 8-5.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <p class="big">難しいことは考えず、<br>まずは一杯飲みに来てください。</p>
+    <p>笑顔BASEで、お待ちしています。</p>
+    <p class="addr">
+      <strong>笑顔BASE</strong>
+      福岡市南区井尻1丁目36-8<br>
+      18:00〜1:00
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 笑顔BASE</span>
+    <span>福岡市南区井尻1丁目36-8｜18:00〜1:00</span>
+  </div>
+</footer>
+
+</body>
+</html>
