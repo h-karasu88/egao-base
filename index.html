@@ -10,45 +10,70 @@
 <!-- 以下は打ち合わせ用の仮設定。要確認：定休日（不定休）／予約方法／ノンアル内容／決済方法／席数／駐車場／イベント内容・日時・料金（SAMPLE表示）。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#F4EFE7; --paper-2:#EAE1D4; --ink:#241F1B; --ink-soft:#645A50;
   --walnut:#5B3F2C; --lamp:#D8913A; --lamp-soft:#F0D0A0;
   --night:#1C1714; --night-2:#262019; --night-ink:#F0E7D9; --line:#D8CDBC;
-  --ph-a:#CDB9A1; --ph-b:#9C7F63;
+  --ph-a:#CDB9A1; --ph-b:#9C7F63; --ph-glow:rgba(232,168,74,.26);
   --serif:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --display:var(--serif);        /* 見出しに使う書体 */
+  --display-ls:.055em;           /* 見出しの字間 */
+  --display-weight:700;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#1B1714; --paper-2:#241E1A; --ink:#F0E7D9; --ink-soft:#B6AA9B;
-    --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
-    --night:#14100E; --night-2:#1E1815; --night-ink:#F0E7D9; --line:#3B332C;
-    --ph-a:#4A3D31; --ph-b:#2F261F;
-  }
+/* B ゴシック：見出しもゴシック。すっきり現代的に */
+:root[data-font="gothic"]{
+  --display:var(--sans);
+  --display-ls:.01em;            /* ゴシックは字間を詰めた方が締まる */
+  --display-weight:700;
 }
-:root[data-theme="dark"]{
-  --paper:#1B1714; --paper-2:#241E1A; --ink:#F0E7D9; --ink-soft:#B6AA9B;
+/* C 丸ゴシック：やわらかく、親しみやすく */
+:root[data-font="maru"]{
+  --display:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;
+  --display-ls:.02em;
+  --display-weight:700;
+}
+/* ② 夜のバー：全体を暗くして、灯りだけが浮かぶ印象 */
+:root[data-theme="bar"]{
+  --paper:#1A1512; --paper-2:#231C18; --ink:#F0E7D9; --ink-soft:#B0A395;
   --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
-  --night:#14100E; --night-2:#1E1815; --night-ink:#F0E7D9; --line:#3B332C;
-  --ph-a:#4A3D31; --ph-b:#2F261F;
+  --night:#120E0C; --night-2:#1C1715; --night-ink:#F0E7D9; --line:#3A322B;
+  --ph-a:#4A3D31; --ph-b:#2F261F; --ph-glow:rgba(232,168,74,.3);
+}
+/* ③ コミュニティ：明るく風通しよく。人が集まる昼の印象 */
+:root[data-theme="community"]{
+  --paper:#F2F5EE; --paper-2:#E2EBDD; --ink:#1F2A22; --ink-soft:#5A6B5E;
+  --walnut:#2F6B45; --lamp:#6BA368; --lamp-soft:#CBE3C2;
+  --night:#24463A; --night-2:#2F5647; --night-ink:#EEF4E9; --line:#CBD9C4;
+  --ph-a:#C3D3BB; --ph-b:#8AA286; --ph-glow:rgba(250,248,240,.2);
+}
+/* OSがダークで、まだテーマを選んでいないときは夜のバー */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme]){
+    --paper:#1A1512; --paper-2:#231C18; --ink:#F0E7D9; --ink-soft:#B0A395;
+    --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
+    --night:#120E0C; --night-2:#1C1715; --night-ink:#F0E7D9; --line:#3A322B;
+    --ph-a:#4A3D31; --ph-b:#2F261F; --ph-glow:rgba(232,168,74,.3);
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body,header,nav,section,footer,.event-card,.to-top,.theme-switch{transition:background-color .45s ease,color .45s ease,border-color .45s ease}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--lamp);outline-offset:3px}
 .wrap{width:min(1080px,100% - 40px);margin-inline:auto}
 .narrow{width:min(640px,100% - 40px);margin-inline:auto}
-h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.75rem,4.8vw,2.7rem);line-height:1.5;letter-spacing:.055em;margin-bottom:1.8rem;text-wrap:pretty}
+h2{font-family:var(--display);font-weight:var(--display-weight);font-size:clamp(1.75rem,4.8vw,2.7rem);line-height:1.5;letter-spacing:var(--display-ls);margin-bottom:1.8rem;text-wrap:pretty}
 p+p{margin-top:1.15em}
 section{padding-block:clamp(88px,13vw,150px)}
 
 /* セクション見出しのラベル（照明のような小さな灯り） */
-@media (max-width:480px){h2{font-size:clamp(1.5rem,6.4vw,1.9rem);letter-spacing:.03em}}
+@media (max-width:480px){h2{font-size:clamp(1.5rem,6.4vw,1.9rem)}}
 .eyebrow{display:flex;align-items:center;gap:.8em;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--walnut);margin-bottom:1.1rem}
 .eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.55;flex:none}
 .art .eyebrow{color:var(--lamp)}
@@ -65,18 +90,96 @@ section{padding-block:clamp(88px,13vw,150px)}
   background:linear-gradient(180deg,rgba(28,20,14,.10),rgba(28,20,14,.34));
   mix-blend-mode:multiply}
 .ph::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(120% 80% at 72% 18%,rgba(232,168,74,.26),transparent 62%)}
+  background:radial-gradient(120% 80% at 72% 18%,var(--ph-glow),transparent 62%)}
 .ph span{position:relative;z-index:2;font-size:.72rem;color:#F6EEE2;background:rgba(24,17,12,.6);backdrop-filter:blur(2px);padding:.35em .8em;margin:12px;border-radius:3px;line-height:1.5}
 
 /* header */
 header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:flex;align-items:center;gap:.55em;font-family:var(--serif);font-weight:700;font-size:1.2rem;text-decoration:none;letter-spacing:.1em}
+.logo{display:flex;align-items:center;gap:.55em;font-family:var(--display);font-weight:700;font-size:1.2rem;text-decoration:none;letter-spacing:.1em}
 .logo svg{width:28px;height:28px}
 nav ul{display:flex;gap:1.6rem;list-style:none;font-size:.85rem}
 nav a{text-decoration:none;color:var(--ink-soft)}
 nav a:hover{color:var(--ink)}
-@media (max-width:760px){nav{display:none}}
+/* 画面外のドロワーが横スクロールを生まないようにする */
+html,body{overflow-x:clip}
+/* ハンバーガーボタン（スマホのみ表示） */
+.menu-btn{display:none;width:44px;height:44px;margin-right:-10px;cursor:pointer;
+  align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.menu-btn span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .2s}
+.menu-scrim{display:none}
+
+@media (max-width:760px){
+  .menu-btn{display:flex}
+  /* スクリム（背景の暗幕）。タップで閉じる */
+  .menu-scrim{position:fixed;inset:0;z-index:11;background:rgba(20,14,10,.5);
+    opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  /* ヘッダーを暗幕より前に出し、閉じるボタンを押せるようにする */
+  header{z-index:13}
+  .menu-btn{position:relative;z-index:14}
+  nav{position:fixed;top:0;right:0;z-index:12;width:min(78vw,300px);height:100dvh;
+    background:var(--paper);border-left:1px solid var(--line);
+    padding:84px 28px 32px;overflow-y:auto;
+    transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);
+    box-shadow:-8px 0 32px rgba(20,14,10,.18)}
+  nav ul{flex-direction:column;gap:0;font-size:1rem}
+  nav li{border-bottom:1px solid var(--line)}
+  nav a{display:block;padding:1.1em .2em}
+  /* チェックボックスがONのとき開く */
+  #menu-toggle:checked ~ nav{transform:translateX(0)}
+  #menu-toggle:checked ~ .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  #menu-toggle:checked ~ .menu-btn span:nth-child(2){opacity:0}
+  #menu-toggle:checked ~ .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  body:has(#menu-toggle:checked) .menu-scrim{opacity:1;visibility:visible}
+  body:has(#menu-toggle:checked){overflow:hidden}
+  /* 開いている間はヘッダーの地色を消し、ドロワーと重ならないようにする */
+  body:has(#menu-toggle:checked) header{background:transparent;backdrop-filter:none;border-bottom-color:transparent}
+  body:has(#menu-toggle:checked) .logo{opacity:0;pointer-events:none}
+}
+
+/* テーマ切替（デモ用。公開時はこのブロックごと削除できます） */
+.theme-switch{position:fixed;right:80px;bottom:20px;z-index:9;
+  display:flex;align-items:center;gap:6px;
+  padding:7px 9px;border-radius:99px;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  border:1px solid var(--line);backdrop-filter:blur(8px);
+  box-shadow:0 4px 18px rgba(20,14,10,.16)}
+.theme-switch .lbl{font-size:.66rem;letter-spacing:.1em;color:var(--ink-soft);padding-left:5px}
+.theme-switch button{width:26px;height:26px;border-radius:50%;cursor:pointer;
+  border:1.5px solid var(--line);padding:0;
+  transition:transform .2s,border-color .2s}
+.theme-switch button:hover{transform:scale(1.12)}
+.theme-switch button[aria-pressed="true"]{border-color:var(--lamp);border-width:2.5px}
+/* 各ボタンは、そのテーマの地色と差し色を実際に見せる */
+.sw-warm{background:linear-gradient(135deg,#F4EFE7 50%,#D8913A 50%)}
+.sw-bar{background:linear-gradient(135deg,#1A1512 50%,#E9AC4E 50%)}
+.sw-community{background:linear-gradient(135deg,#E2EBDD 50%,#2F6B45 50%)}
+/* 書体ボタンは「あ」の形そのもので違いを見せる */
+.theme-switch .fnt{width:auto;min-width:28px;height:26px;border-radius:13px;
+  background:transparent;color:var(--ink);font-size:.95rem;line-height:1;
+  padding:0 7px;font-weight:700}
+.fnt-mincho{font-family:"Zen Old Mincho",serif}
+.fnt-gothic{font-family:"Zen Kaku Gothic New",sans-serif}
+.fnt-maru{font-family:"Zen Maru Gothic",sans-serif}
+.theme-switch .sep{width:1px;height:20px;background:var(--line);margin:0 2px;flex:none}
+@media (max-width:760px){
+  .theme-switch{right:70px;bottom:16px;padding:6px 8px;gap:5px}
+  .theme-switch .lbl{display:none}
+  .theme-switch button{width:24px;height:24px}
+}
+
+/* 上に戻るボタン */
+.to-top{position:fixed;right:20px;bottom:20px;z-index:9;
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--walnut);color:var(--paper);
+  box-shadow:0 4px 18px rgba(20,14,10,.3);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .3s,visibility .3s,transform .3s}
+.to-top svg{width:20px;height:20px}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{filter:brightness(1.12)}
+@media (max-width:760px){.to-top{right:16px;bottom:16px;width:44px;height:44px}}
 
 /* hero */
 .hero{padding:0;position:relative;overflow:hidden}
@@ -85,7 +188,7 @@ nav a:hover{color:var(--ink)}
   linear-gradient(to top,rgba(18,12,8,.92) 0%,rgba(18,12,8,.74) 38%,rgba(18,12,8,.5) 70%,rgba(18,12,8,.42) 100%);
   mix-blend-mode:normal}
 .hero-copy{position:absolute;inset:auto 0 0 0;z-index:3;color:#FBF6EE;padding-bottom:clamp(56px,9vw,104px)}
-.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,6.4vw,3.9rem);line-height:1.42;letter-spacing:.055em;max-width:15em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+.hero h1{font-family:var(--display);font-weight:var(--display-weight);font-size:clamp(2rem,6.4vw,3.9rem);line-height:1.42;letter-spacing:var(--display-ls);max-width:15em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
 .hero .sub{margin-top:1.5rem;font-size:clamp(1rem,2.4vw,1.25rem);line-height:1.9;opacity:.94}
 .hero .meta{margin-top:1.6rem;padding-top:1.4rem;font-size:.82rem;letter-spacing:.16em;opacity:.85;position:relative}
 .hero .meta::before{content:"";position:absolute;top:0;left:0;width:56px;height:1px;background:rgba(246,238,226,.45)}
@@ -112,7 +215,7 @@ nav a:hover{color:var(--ink)}
 
 /* about */
 .about .narrow{text-align:left;width:min(720px,100% - 40px)}
-.about .lead{font-family:var(--serif);font-size:clamp(1.15rem,2.6vw,1.35rem);line-height:1.85;color:var(--walnut);margin-bottom:.4rem}
+.about .lead{font-family:var(--display);font-size:clamp(1.15rem,2.6vw,1.35rem);line-height:1.85;color:var(--walnut);margin-bottom:.4rem}
 
 /* scenes（通常バーとしての利用シーン） */
 .scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,32px);margin-bottom:clamp(56px,8vw,88px)}
@@ -120,23 +223,23 @@ nav a:hover{color:var(--ink)}
 @media (max-width:480px){.scenes{grid-template-columns:1fr}}
 .scene .ph{aspect-ratio:3/2;margin-bottom:1.1rem;transition:transform .45s ease}
 .scene:hover .ph{transform:translateY(-4px)}
-.scene h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:.4rem}
+.scene h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.4rem}
 .scene p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
-.sub-head{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.06em;margin-bottom:1.4rem;padding-top:clamp(40px,6vw,56px);border-top:1px solid var(--line)}
+.sub-head{font-family:var(--display);font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.06em;margin-bottom:1.4rem;padding-top:clamp(40px,6vw,56px);border-top:1px solid var(--line)}
 
 /* story */
 .story{background:var(--paper-2)}
 .story-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,80px);align-items:start}
 .story .ph{aspect-ratio:4/5;position:sticky;top:90px}
-.story h3{font-family:var(--serif);font-size:1.18rem;margin:2.6rem 0 .7rem;color:var(--walnut);padding-left:.9em;border-left:2px solid var(--lamp)}
-.story blockquote{font-family:var(--serif);font-size:clamp(1.25rem,3.1vw,1.6rem);line-height:1.75;padding:1.6rem 0;margin:2.8rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--walnut)}
+.story h3{font-family:var(--display);font-size:1.18rem;margin:2.6rem 0 .7rem;color:var(--walnut);padding-left:.9em;border-left:2px solid var(--lamp)}
+.story blockquote{font-family:var(--display);font-size:clamp(1.25rem,3.1vw,1.6rem);line-height:1.75;padding:1.6rem 0;margin:2.8rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--walnut)}
 @media (max-width:760px){.story-grid{grid-template-columns:1fr}.story .ph{position:static;aspect-ratio:4/3}}
 
 /* can do */
 .cando-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--line)}
 .cando-list li{list-style:none;padding:1.7rem 1.6rem 1.9rem 0;border-bottom:1px solid var(--line);transition:background .25s}
 .cando-list li:hover{background:color-mix(in srgb,var(--lamp) 7%,transparent)}
-.cando-list h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
+.cando-list h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
 .cando-list p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
 .note{font-size:.82rem;color:var(--ink-soft);margin-top:1.4rem}
 
@@ -149,7 +252,7 @@ nav a:hover{color:var(--ink)}
 .works{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,28px)}
 .work .ph{aspect-ratio:4/5;margin-bottom:.9rem;transition:transform .45s ease}
 .work:hover .ph{transform:translateY(-5px)}
-.work h3{font-family:var(--serif);font-size:1.05rem;font-weight:500;letter-spacing:.04em}
+.work h3{font-family:var(--display);font-size:1.05rem;font-weight:500;letter-spacing:.04em}
 .work .artist{display:block;font-size:.8rem;color:var(--lamp);letter-spacing:.1em;margin-top:.35rem}
 .art .note{color:color-mix(in srgb,var(--night-ink) 62%,transparent);margin-top:2.4rem}
 @media (max-width:760px){.works{grid-template-columns:1fr 1fr}}
@@ -168,7 +271,7 @@ nav a:hover{color:var(--ink)}
 .event-card{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
 .event-card .ph{aspect-ratio:16/9;border-radius:0}
 .event-body{padding:1.4rem 1.4rem 1.6rem}
-.event-card h3{font-family:var(--serif);font-size:1.15rem;line-height:1.6;margin:.5rem 0 .8rem}
+.event-card h3{font-family:var(--display);font-size:1.15rem;line-height:1.6;margin:.5rem 0 .8rem}
 .event-meta{display:grid;grid-template-columns:4.5em 1fr;row-gap:.3rem;font-size:.88rem;color:var(--ink-soft)}
 .event-meta dt{font-weight:500;padding:0;border:0}
 .event-meta dd{padding:0;border:0}
@@ -201,9 +304,9 @@ dd small{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:.2rem}
 .closing::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 0%,color-mix(in srgb,var(--lamp) 16%,transparent),transparent 70%)}
 .closing .narrow{position:relative}
 .closing .smile{width:72px;height:72px;margin:0 auto 1.8rem;color:var(--lamp)}
-.closing p.big{font-family:var(--serif);font-size:clamp(1.4rem,4vw,2rem);line-height:1.7}
+.closing p.big{font-family:var(--display);font-size:clamp(1.4rem,4vw,2rem);line-height:1.7}
 .closing .addr{margin-top:2.4rem;padding-top:2rem;border-top:1px solid var(--line);font-size:.95rem;line-height:2;color:var(--ink-soft)}
-.closing .addr strong{display:block;font-family:var(--serif);font-size:1.15rem;color:var(--ink);letter-spacing:.1em;margin-bottom:.4rem}
+.closing .addr strong{display:block;font-family:var(--display);font-size:1.15rem;color:var(--ink);letter-spacing:.1em;margin-bottom:.4rem}
 
 footer{background:var(--night);color:var(--night-ink);padding:2.4rem 0;font-size:.8rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;opacity:.8}
@@ -217,6 +320,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 18.5c1.6 3 4 4.5 6.5 4.5s4.9-1.5 6.5-4.5" stroke="#E4A03C" stroke-width="2.2" stroke-linecap="round"/><circle cx="11.5" cy="13" r="1.4" fill="currentColor"/><circle cx="20.5" cy="13" r="1.4" fill="currentColor"/></svg>
       笑顔BASE
     </a>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="menu-btn" aria-label="メニューを開く">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </label>
     <nav aria-label="ページ内メニュー">
       <ul>
         <li><a href="#about">笑顔BASEとは</a></li>
@@ -229,12 +336,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
     </nav>
   </div>
 </header>
+<label for="menu-toggle" class="menu-scrim" aria-hidden="true"></label>
 
 <main id="top">
 
 <!-- ① ファーストビュー -->
 <section class="hero" aria-label="メインビジュアル">
-  <div class="ph"><img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=2000&q=75" alt="木のカウンターと暖色の照明があるバーの店内（イメージ）"><span>イメージ写真（差し替え予定）</span></div>
+  <div class="ph"><img src="https://images.unsplash.com/photo-1739799120521-c5f44a9335a3?auto=format&fit=crop&w=2000&q=75" alt="木のカウンターと椅子が並ぶ、暖色の照明のバーの店内（イメージ）"><span>イメージ写真（差し替え予定）</span></div>
   <div class="glow" aria-hidden="true"></div>
   <div class="scroll-cue" aria-hidden="true"></div>
   <div class="hero-copy">
@@ -491,6 +599,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
 
 </main>
 
+<!-- デモ用のテーマ切替。公開時はこの要素とスクリプト内の該当箇所を削除してください -->
+<div class="theme-switch" role="group" aria-label="配色の切り替え（デモ用）">
+  <span class="lbl">色を変える</span>
+  <button type="button" class="sw-warm" data-theme-set="warm" aria-label="現在の色（木と灯り）" title="現在の色：木と灯り"></button>
+  <button type="button" class="sw-bar" data-theme-set="bar" aria-label="夜のバー" title="夜のバー"></button>
+  <button type="button" class="sw-community" data-theme-set="community" aria-label="コミュニティ" title="コミュニティ"></button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" class="fnt fnt-mincho" data-font-set="mincho" aria-label="明朝体" title="明朝体">あ</button>
+  <button type="button" class="fnt fnt-gothic" data-font-set="gothic" aria-label="ゴシック体" title="ゴシック体">あ</button>
+  <button type="button" class="fnt fnt-maru" data-font-set="maru" aria-label="丸ゴシック体" title="丸ゴシック体">あ</button>
+</div>
+
+<a href="#top" class="to-top" aria-label="ページの先頭へ戻る">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+
 <footer>
   <div class="wrap">
     <span>© 笑顔BASE</span>
@@ -498,5 +622,57 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </footer>
 
+<script>
+// 一定量スクロールしたら「上に戻る」を表示
+(function(){
+  var btn = document.querySelector('.to-top');
+  var toggle = document.getElementById('menu-toggle');
+  var show = false;
+  function onScroll(){
+    var want = window.scrollY > window.innerHeight * 0.8;
+    if (want !== show) { show = want; btn.classList.toggle('show', want); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  // メニュー内のリンクをタップしたら閉じる
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle.checked = false; });
+  });
+
+  // --- デモ用：配色の切り替え（公開時はここから下を削除） ---
+  var swBtns = document.querySelectorAll('[data-theme-set]');
+  function apply(name){
+    if (name === 'warm') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', name);
+    swBtns.forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.themeSet === name ? 'true' : 'false');
+    });
+    try { localStorage.setItem('egao-theme', name); } catch(e){}
+  }
+  swBtns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.dataset.themeSet); });
+  });
+  var saved = 'warm';
+  try { saved = localStorage.getItem('egao-theme') || 'warm'; } catch(e){}
+  apply(saved);
+
+  // 書体の切り替え
+  var fnBtns = document.querySelectorAll('[data-font-set]');
+  function applyFont(name){
+    if (name === 'mincho') document.documentElement.removeAttribute('data-font');
+    else document.documentElement.setAttribute('data-font', name);
+    fnBtns.forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.fontSet === name ? 'true' : 'false');
+    });
+    try { localStorage.setItem('egao-font', name); } catch(e){}
+  }
+  fnBtns.forEach(function(b){
+    b.addEventListener('click', function(){ applyFont(b.dataset.fontSet); });
+  });
+  var savedFont = 'mincho';
+  try { savedFont = localStorage.getItem('egao-font') || 'mincho'; } catch(e){}
+  applyFont(savedFont);
+})();
+</script>
 </body>
 </html>
