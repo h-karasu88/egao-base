@@ -168,6 +168,34 @@ html,body{overflow-x:clip}
   .theme-switch button{width:24px;height:24px}
 }
 
+/* 打ち合わせメモ（デモ用。公開時はこのブロックと該当要素を削除してください） */
+.memo-btn{position:fixed;left:20px;bottom:20px;z-index:9;
+  display:inline-flex;align-items:center;gap:.5em;cursor:pointer;
+  padding:.65em 1.1em;border-radius:99px;font-size:.78rem;font-weight:700;
+  background:var(--walnut);color:var(--paper);border:0;
+  box-shadow:0 4px 18px rgba(20,14,10,.28)}
+.memo-btn:hover{filter:brightness(1.12)}
+.memo-panel{position:fixed;inset:0;z-index:20;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(18,12,8,.6);backdrop-filter:blur(3px)}
+.memo-panel[open]{display:flex}
+.memo-inner{background:var(--paper);color:var(--ink);border:1px solid var(--line);
+  border-radius:8px;max-width:640px;width:100%;max-height:82vh;overflow-y:auto;
+  padding:clamp(24px,4vw,36px);box-shadow:0 12px 48px rgba(20,14,10,.4)}
+.memo-inner h3{font-family:var(--display);font-size:1.3rem;margin-bottom:.4rem}
+.memo-inner .memo-lead{font-size:.86rem;color:var(--ink-soft);margin-bottom:1.6rem}
+.memo-inner h4{font-size:.92rem;font-weight:700;color:var(--walnut);
+  margin:1.6rem 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+.memo-inner ul{margin:0;padding-left:1.2em;font-size:.88rem;line-height:1.85}
+.memo-inner li{margin-bottom:.3em}
+.memo-tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;
+  padding:.15em .6em;border-radius:3px;background:var(--lamp-soft);color:var(--walnut);margin-right:.4em}
+.memo-close{display:block;margin:1.8rem 0 0 auto;cursor:pointer;
+  padding:.6em 1.6em;border-radius:99px;font-size:.85rem;font-weight:700;
+  background:var(--walnut);color:var(--paper);border:0}
+/* スマホでは配色切替と重なるため、1段上に置く */
+@media (max-width:760px){.memo-btn{left:16px;bottom:70px;padding:.6em .9em;font-size:.72rem}}
+
 /* 上に戻るボタン */
 .to-top{position:fixed;right:20px;bottom:20px;z-index:9;
   width:48px;height:48px;border-radius:50%;
@@ -225,10 +253,11 @@ html,body{overflow-x:clip}
 .scene:hover .ph{transform:translateY(-4px)}
 .scene h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.4rem}
 .scene p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
+.cando{background:var(--paper-2)}
 .sub-head{font-family:var(--display);font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.06em;margin-bottom:1.4rem;padding-top:clamp(40px,6vw,56px);border-top:1px solid var(--line)}
 
 /* story */
-.story{background:var(--paper-2)}
+.story{background:var(--paper)}
 .story-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,80px);align-items:start}
 .story .ph{aspect-ratio:4/5;position:sticky;top:90px}
 .story h3{font-family:var(--display);font-size:1.18rem;margin:2.6rem 0 .7rem;color:var(--walnut);padding-left:.9em;border-left:2px solid var(--lamp)}
@@ -276,6 +305,11 @@ html,body{overflow-x:clip}
 .event-meta dt{font-weight:500;padding:0;border:0}
 .event-meta dd{padding:0;border:0}
 .sample-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.2em .8em;border-radius:99px;background:var(--lamp-soft);color:var(--walnut)}
+/* 仮情報であることを、カード上部の帯ではっきり示す */
+.sample-bar{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-align:center;
+  padding:.5em .6em;background:var(--lamp-soft);color:var(--walnut);
+  border-bottom:1px dashed color-mix(in srgb,var(--walnut) 45%,transparent)}
+.event-card{border-style:dashed}
 
 /* faq */
 .faq details{border-bottom:1px solid var(--line)}
@@ -327,8 +361,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
     <nav aria-label="ページ内メニュー">
       <ul>
         <li><a href="#about">笑顔BASEとは</a></li>
-        <li><a href="#story">つくった理由</a></li>
         <li><a href="#cando">できること</a></li>
+        <li><a href="#story">つくった理由</a></li>
         <li><a href="#events">イベント</a></li>
         <li><a href="#first">初めての方へ</a></li>
         <li><a href="#info">店舗情報</a></li>
@@ -378,31 +412,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </section>
 
-<!-- ③ なぜ看護師がバーをつくるのか -->
-<section class="story" id="story">
-  <div class="wrap story-grid">
-    <div class="ph"><img src="https://images.unsplash.com/photo-1651153623469-f92d241ec571?auto=format&fit=crop&w=1200&q=70" alt="テーブルでくつろぐ人（イメージ）" loading="lazy"><span>イメージ写真：経営者の写真に差し替え予定</span></div>
-    <div>
-      <p class="eyebrow">STORY</p>
-      <h2>看護師が、<br>バーをつくった理由。</h2>
-      <p>わたしは、訪問看護の仕事をしています。<br>人に寄り添う。支える。安心できる関係をつくる。<br>その大切さを、毎日の現場で感じてきました。</p>
-
-      <h3>好きな仕事を、長く続けるために</h3>
-      <p>訪問看護は、人が人を支える仕事です。<br>でも、一人が一日に回れる件数には限りがあります。<br>報酬も、自分たちで決められるものではありません。</p>
-      <p>この仕事を長く続けるには、新しい柱が必要。<br>そう考えるようになりました。</p>
-
-      <h3>興味のないことは、やりたくなかった</h3>
-      <p>ただ、お金のためだけに、<br>気持ちの入らない事業を始めたくはありませんでした。</p>
-      <p>考えてたどり着いたのが、<br>「人が集まる場所をつくる」ということです。</p>
-
-      <blockquote>現場で大事にしてきた安心を、<br>病院や訪問先の外にも。</blockquote>
-
-      <p>お酒があれば、人は自然に集まれます。<br>立場が違っても、話せばつながれる。<br>つながれば、何かが動き出す。<br>笑顔BASEは、そのための場所です。</p>
-      <!-- 経営者ヒアリング後に本人の言葉へ差し替え -->
-    </div>
-  </div>
-</section>
-
 <!-- ④ この場所でできること -->
 <section class="cando" id="cando">
   <div class="wrap">
@@ -445,7 +454,32 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </section>
 
-<!-- ⑤ ART / CHALLENGE -->
+<!-- ⑤ なぜ看護師がバーをつくるのか -->
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1651153623469-f92d241ec571?auto=format&fit=crop&w=1200&q=70" alt="テーブルでくつろぐ人（イメージ）" loading="lazy"><span>イメージ写真：経営者の写真に差し替え予定</span></div>
+    <div>
+      <p class="eyebrow">STORY</p>
+      <h2>看護師が、<br>バーをつくった理由。</h2>
+      <p>わたしは、訪問看護の仕事をしています。<br>人に寄り添う。支える。安心できる関係をつくる。<br>その大切さを、毎日の現場で感じてきました。</p>
+
+      <h3>好きな仕事を、長く続けるために</h3>
+      <p>訪問看護は、人が人を支える仕事です。<br>でも、一人が一日に回れる件数には限りがあります。<br>報酬も、自分たちで決められるものではありません。</p>
+      <p>この仕事を長く続けるには、新しい柱が必要。<br>そう考えるようになりました。</p>
+
+      <h3>興味のないことは、やりたくなかった</h3>
+      <p>ただ、お金のためだけに、<br>気持ちの入らない事業を始めたくはありませんでした。</p>
+      <p>考えてたどり着いたのが、<br>「人が集まる場所をつくる」ということです。</p>
+
+      <blockquote>現場で大事にしてきた安心を、<br>病院や訪問先の外にも。</blockquote>
+
+      <p>一杯をきっかけに、人が自然に集まれる場所をつくりたい。<br>立場が違っても、話せばつながれる。<br>つながれば、何かが動き出す。<br>笑顔BASEは、そのための場所です。</p>
+      <!-- 経営者ヒアリング後に本人の言葉へ差し替え -->
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ ART / CHALLENGE -->
 <section class="art" id="art">
   <div class="wrap">
     <p class="eyebrow">ART / CHALLENGE</p>
@@ -469,28 +503,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
         <h3>手仕事のもの</h3><span class="artist">作家名</span>
       </div>
     </div>
-    <p class="note">展示・販売する作品は準備中です。<span class="draft">構想</span><br>出展のご相談も、お気軽にお声がけください。</p>
-  </div>
-</section>
-
-<!-- ⑥ 看護師という仕事の可能性 -->
-<section class="nurse" id="nurse">
-  <div class="wrap nurse-grid">
-    <div>
-      <p class="eyebrow">NURSE</p>
-      <h2>看護師だから、<br>できることがある。</h2>
-      <p>「看護師だからできない」<br>そう思われることが、まだ多いかもしれません。</p>
-      <p>でも、人の話を聴く。安心をつくる。人をつなぐ。<br>それは、看護の現場で身についた力です。</p>
-      <ul aria-label="看護師の新しい選択肢">
-        <li>新しい事業に挑戦できる</li>
-        <li>自分で仕事をつくれる</li>
-        <li>しっかり稼げる</li>
-        <li>人生の選択肢を広げられる</li>
-      </ul>
-      <p>わたしはこれからも現場に立ちます。<br>注射もするし、利用者さんとも向き合う。<br>看護師のまま、新しいことに挑戦します。</p>
-      <p>いつか、子どもたちが「なりたい」と思う仕事に。<br>その姿を、この店から見せていきたいです。</p>
-    </div>
-    <div class="ph"><img src="https://images.unsplash.com/photo-1653919222330-b6face80755d?auto=format&fit=crop&w=1200&q=70" alt="バーのカウンター（イメージ）" loading="lazy"><span>イメージ写真：看護の現場／カウンターに立つ姿に差し替え予定</span></div>
+    <p class="note">展示・販売する作品については、これから少しずつご紹介していきます。<span class="draft">構想</span></p>
   </div>
 </section>
 
@@ -503,9 +516,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
     <!-- イベント確定後、この event-card を実データに差し替え -->
     <div class="event-list">
       <article class="event-card">
+        <p class="sample-bar">表示イメージ｜内容は仮です</p>
         <div class="ph"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=70" alt="交流会の様子（イメージ）" loading="lazy"></div>
         <div class="event-body">
-          <span class="sample-tag">SAMPLE</span>
           <h3>医療・介護・福祉の交流会</h3>
           <dl class="event-meta">
             <dt>日時</dt><dd>10月○日（○）19:00〜</dd>
@@ -515,9 +528,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
         </div>
       </article>
       <article class="event-card">
+        <p class="sample-bar">表示イメージ｜内容は仮です</p>
         <div class="ph"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=70" alt="ビジネス交流会の様子（イメージ）" loading="lazy"></div>
         <div class="event-body">
-          <span class="sample-tag">SAMPLE</span>
           <h3>ビジネス交流会</h3>
           <dl class="event-meta">
             <dt>日時</dt><dd>11月○日（○）19:30〜</dd>
@@ -527,9 +540,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
         </div>
       </article>
       <article class="event-card">
+        <p class="sample-bar">表示イメージ｜内容は仮です</p>
         <div class="ph"><img src="https://images.unsplash.com/photo-1594732832278-abd644401426?auto=format&fit=crop&w=900&q=70" alt="壁に展示された作品（イメージ）" loading="lazy"></div>
         <div class="event-body">
-          <span class="sample-tag">SAMPLE</span>
           <h3>アート展示｜作品と、つくった人に会える夜</h3>
           <dl class="event-meta">
             <dt>期間</dt><dd>11月○日〜○日</dd>
@@ -542,7 +555,28 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </section>
 
-<!-- ⑧ 初めての方へ -->
+<!-- ⑧ 看護師という仕事の可能性 -->
+<section class="nurse" id="nurse">
+  <div class="wrap nurse-grid">
+    <div>
+      <p class="eyebrow">NURSE</p>
+      <h2>看護師だから、<br>できることがある。</h2>
+      <p>「看護師だからできない」<br>そう思われることが、まだ多いかもしれません。</p>
+      <p>でも、人の話を聴く。安心をつくる。人をつなぐ。<br>それは、看護の現場で身についた力です。</p>
+      <ul aria-label="看護師の新しい選択肢">
+        <li>新しい事業に挑戦できる</li>
+        <li>自分で仕事をつくれる</li>
+        <li>働き方や収入の選択肢を広げられる</li>
+        <li>人生の選択肢を広げられる</li>
+      </ul>
+      <p>わたしはこれからも現場に立ちます。<br>注射もするし、利用者さんとも向き合う。<br>看護師のまま、新しいことに挑戦します。</p>
+      <p>いつか、子どもたちが「なりたい」と思う仕事に。<br>その姿を、この店から見せていきたいです。</p>
+    </div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1653919222330-b6face80755d?auto=format&fit=crop&w=1200&q=70" alt="バーのカウンター（イメージ）" loading="lazy"><span>イメージ写真：看護の現場／カウンターに立つ姿に差し替え予定</span></div>
+  </div>
+</section>
+
+<!-- ⑨ 初めての方へ -->
 <section class="faq" id="first">
   <div class="narrow">
     <p class="eyebrow">FAQ</p>
@@ -558,7 +592,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </section>
 
-<!-- ⑨ 店舗情報 -->
+<!-- ⑩ 店舗情報 -->
 <section class="info" id="info">
   <div class="wrap">
     <p class="eyebrow">INFORMATION</p>
@@ -583,7 +617,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   </div>
 </section>
 
-<!-- ⑩ 最後のメッセージ -->
+<!-- ⑪ 最後のメッセージ -->
 <section class="closing">
   <div class="narrow">
     <svg class="smile" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 17c1.9 3.8 4.9 5.8 8 5.8s6.1-2 8-5.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -598,6 +632,61 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
 </section>
 
 </main>
+
+<!-- 打ち合わせメモ（デモ用。公開時はこの要素とスクリプト内の該当箇所を削除してください） -->
+<button type="button" class="memo-btn" id="memo-open">打ち合わせメモ</button>
+<div class="memo-panel" id="memo-panel" role="dialog" aria-modal="true" aria-labelledby="memo-title">
+  <div class="memo-inner">
+    <h3 id="memo-title">打ち合わせメモ</h3>
+    <p class="memo-lead">このページは第2案です。以下はオーナー確認が必要な項目です。</p>
+
+    <h4>メインコピー</h4>
+    <ul>
+      <li>「看護の外にも、安心と笑顔が生まれる場所を。」でよいか</li>
+      <li>看護を最初から前面に出すか</li>
+    </ul>
+
+    <h4>来店ターゲット</h4>
+    <ul>
+      <li>一般客／看護師・医療関係者／経営者／障がいのある方や家族<br>のうち、誰を最優先にするか</li>
+    </ul>
+
+    <h4>STORY（バーをつくった理由）</h4>
+    <ul>
+      <li>「なぜバーをやるのか」の説明は本人の思いに近いか</li>
+      <li>もっと強く伝えたい部分はあるか</li>
+    </ul>
+
+    <h4>ART / CHALLENGE</h4>
+    <ul>
+      <li>展示・販売はどこまで行いたいか</li>
+      <li>社会性をどこまで前面に出すか</li>
+    </ul>
+
+    <h4>看護師という仕事の可能性</h4>
+    <ul>
+      <li><span class="memo-tag">要確認</span>「しっかり稼げる」という直接的な表現を残すか、柔らかくするかオーナー確認<br>（現在は「働き方や収入の選択肢を広げられる」に変更済み）</li>
+    </ul>
+
+    <h4>イベント</h4>
+    <ul>
+      <li><span class="memo-tag">仮設定・要確認</span>イベント表示の完成イメージ用。実際の内容ではありません。</li>
+      <li>実際にやりたいイベントは何か／頻度／有料・無料／誰向けか</li>
+    </ul>
+
+    <h4>店舗情報の仮設定</h4>
+    <ul>
+      <li><span class="memo-tag">仮設定・要確認</span>定休日（不定休）／予約方法／ノンアルコールの内容／決済方法／席数／駐車場</li>
+    </ul>
+
+    <h4>写真</h4>
+    <ul>
+      <li>すべてイメージ写真です。実際の店舗・本人の写真に差し替えが必要です。</li>
+    </ul>
+
+    <button type="button" class="memo-close" id="memo-close">閉じる</button>
+  </div>
+</div>
 
 <!-- デモ用のテーマ切替。公開時はこの要素とスクリプト内の該当箇所を削除してください -->
 <div class="theme-switch" role="group" aria-label="配色の切り替え（デモ用）">
@@ -655,6 +744,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
   var saved = 'warm';
   try { saved = localStorage.getItem('egao-theme') || 'warm'; } catch(e){}
   apply(saved);
+
+  // 打ち合わせメモの開閉（初期状態は非表示）
+  var memoPanel = document.getElementById('memo-panel');
+  function memoSet(open){
+    if (open) memoPanel.setAttribute('open',''); else memoPanel.removeAttribute('open');
+  }
+  document.getElementById('memo-open').addEventListener('click', function(){ memoSet(true); });
+  document.getElementById('memo-close').addEventListener('click', function(){ memoSet(false); });
+  memoPanel.addEventListener('click', function(e){ if (e.target === memoPanel) memoSet(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') memoSet(false); });
 
   // 書体の切り替え
   var fnBtns = document.querySelectorAll('[data-font-set]');
