@@ -258,30 +258,6 @@ footer .logo{font-size:1.1rem;color:var(--ink)}
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{filter:brightness(1.08)}
 section[id]{scroll-margin-top:62px}
-
-/* イメージ確認用メモ（公開時はこのブロックと該当要素を削除） */
-.memo-btn{position:fixed;left:16px;bottom:16px;z-index:9;cursor:pointer;padding:.65em 1.1em;border-radius:99px;font:700 .78rem var(--sans);background:var(--sea-fill);color:var(--on-sea);border:0;box-shadow:0 4px 18px rgba(0,0,0,.4)}
-/* 配色切替（イメージ確認用。公開時はこのブロックと該当要素を削除） */
-.theme-switch{position:fixed;right:76px;bottom:16px;z-index:9;display:flex;align-items:center;gap:6px;
-  padding:7px 9px;border-radius:99px;background:color-mix(in srgb,var(--bg-2) 92%,transparent);
-  border:1px solid var(--line);backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.4)}
-.theme-switch .lbl{font-size:.66rem;letter-spacing:.08em;color:var(--ink-soft);padding-left:4px}
-.theme-switch button{width:26px;height:26px;border-radius:50%;cursor:pointer;border:1.5px solid var(--line);padding:0;
-  transition:transform .2s,border-color .2s}
-.theme-switch button:hover{transform:scale(1.12)}
-.theme-switch button[aria-pressed="true"]{border-color:var(--sun);border-width:2.5px}
-.sw-now{background:linear-gradient(135deg,#12171D 50%,#FF8A3D 50%)}
-.sw-sea{background:linear-gradient(135deg,#DCEFEC 50%,#0E9C8A 50%)}
-.sw-natural{background:linear-gradient(135deg,#EDE6D9 50%,#C96A28 50%)}
-@media (max-width:760px){.theme-switch{right:70px;padding:6px 8px}.theme-switch .lbl{display:none}}
-
-.memo-panel{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(5,8,10,.7)}
-.memo-panel[open]{display:flex}
-.memo-inner{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;max-width:600px;width:100%;max-height:84vh;overflow-y:auto;padding:clamp(22px,4vw,34px)}
-.memo-inner h3{font-size:1.2rem;font-weight:900;margin-bottom:.3rem}
-.memo-inner h4{font-size:.9rem;color:var(--sun);margin:1.4rem 0 .4rem}
-.memo-inner ul{padding-left:1.2em;font-size:.88rem;color:var(--ink-soft)}
-.memo-close{display:block;margin:1.6rem 0 0 auto;cursor:pointer;padding:.6em 1.6em;border-radius:99px;font:700 .85rem var(--sans);background:var(--sun-fill);color:var(--on-sun);border:0}
 </style>
 </head>
 <body>
@@ -590,38 +566,6 @@ section[id]{scroll-margin-top:62px}
   </div>
 </footer>
 
-<!-- イメージ確認用メモ（公開時はこの要素とスクリプト内の該当箇所を削除） -->
-<!-- 配色切替（イメージ確認用。公開時はこの要素とスクリプト内の該当箇所を削除） -->
-<div class="theme-switch" role="group" aria-label="配色の切り替え（確認用）">
-  <span class="lbl">色</span>
-  <button type="button" class="sw-now" data-theme-set="now" aria-label="現在の色" title="現在の色"></button>
-  <button type="button" class="sw-sea" data-theme-set="sea" aria-label="海寄り" title="海寄り"></button>
-  <button type="button" class="sw-natural" data-theme-set="natural" aria-label="ナチュラル" title="ナチュラル"></button>
-</div>
-
-<button type="button" class="memo-btn" id="memo-open">確認メモ</button>
-<div class="memo-panel" id="memo-panel" role="dialog" aria-modal="true" aria-labelledby="memo-title">
-  <div class="memo-inner">
-    <h3 id="memo-title">確認メモ（イメージ作り段階）</h3>
-    <h4>仮・準備中のもの</h4>
-    <ul>
-      <li>写真はすべてイメージ写真です（店内・作品の写真に差し替え予定）</li>
-      <li>「お知らせ」欄の3件は表示イメージで、実際の予定ではありません</li>
-      <li>島しばりの酒（企画中）、軽食の内容（11月〜）</li>
-    </ul>
-    <h4>公開までに決めること</h4>
-    <ul>
-      <li>ドメイン（竹之内さんに確認中）</li>
-    </ul>
-    <h4>管理画面で更新する予定の部分</h4>
-    <ul>
-      <li>定期イベント（カフェ会・交流会）：次回の日付は自動で表示。休む月を指定できるようにする</li>
-      <li>お知らせ・臨時イベント：竹之内さんがスマホから追加</li>
-    </ul>
-    <button type="button" class="memo-close" id="memo-close">閉じる</button>
-  </div>
-</div>
-
 <script>
 (function(){
   // 毎月「第n ○曜日」の次回開催日を計算して表示する
@@ -663,31 +607,6 @@ section[id]{scroll-margin-top:62px}
   document.querySelectorAll('nav a').forEach(function(a){
     a.addEventListener('click', function(){ toggle.checked = false; });
   });
-
-  // 確認メモの開閉（公開時は削除）
-  var panel = document.getElementById('memo-panel');
-  function memo(open){ open ? panel.setAttribute('open','') : panel.removeAttribute('open'); }
-  document.getElementById('memo-open').addEventListener('click', function(){ memo(true); });
-  document.getElementById('memo-close').addEventListener('click', function(){ memo(false); });
-  panel.addEventListener('click', function(e){ if (e.target === panel) memo(false); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') memo(false); });
-
-  // 配色の切り替え（公開時は削除）
-  var swBtns = document.querySelectorAll('[data-theme-set]');
-  function applyTheme(name){
-    if (name === 'now') document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme', name);
-    swBtns.forEach(function(b){
-      b.setAttribute('aria-pressed', b.dataset.themeSet === name ? 'true' : 'false');
-    });
-    try { localStorage.setItem('nimo-theme', name); } catch(e){}
-  }
-  swBtns.forEach(function(b){
-    b.addEventListener('click', function(){ applyTheme(b.dataset.themeSet); });
-  });
-  var savedTheme = 'now';
-  try { savedTheme = localStorage.getItem('nimo-theme') || 'now'; } catch(e){}
-  applyTheme(savedTheme);
 })();
 </script>
 </body>
