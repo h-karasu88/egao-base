@@ -3,369 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>笑顔BASE｜福岡・井尻の小さなバー</title>
-<meta name="description" content="笑顔BASEは、福岡市南区井尻にある小さなバーです。18:00〜1:00。一人でも、仲間とでも、気軽に一杯どうぞ。">
-<!-- 写真はUnsplash（商用利用可）のイメージ写真を外部読込。公開前に実写真へ差し替え。 -->
-<!-- 確定情報：住所（南区井尻1-36-8）／営業時間（18:00〜1:00）。 -->
-<!-- 以下は打ち合わせ用の仮設定。要確認：定休日（不定休）／予約方法／ノンアル内容／決済方法／席数／駐車場／イベント内容・日時・料金（SAMPLE表示）。 -->
+<title>BAR NIMO｜福岡・井尻のカジュアルBAR</title>
+<meta name="description" content="BAR NIMO（バー ニモ）は福岡市南区井尻のカジュアルBAR。21:00から営業、日曜定休。飲み放題1時間2,000円（チャージ込み）。サッカー観戦、音楽、島のお酒、アート展示も。">
+<!-- イメージ作り段階。写真はUnsplash（商用利用可）のイメージ写真を外部読込。公開前に実写真へ差し替え。 -->
+<!-- イベント欄は、公開時に自作の管理画面（PHP + SQLite）から出力する想定。今は仮データ。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F4EFE7; --paper-2:#EAE1D4; --ink:#241F1B; --ink-soft:#645A50;
-  --walnut:#5B3F2C; --lamp:#D8913A; --lamp-soft:#F0D0A0;
-  --night:#1C1714; --night-2:#262019; --night-ink:#F0E7D9; --line:#D8CDBC;
-  --ph-a:#CDB9A1; --ph-b:#9C7F63; --ph-glow:rgba(232,168,74,.26);
-  --serif:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --bg:#12171D; --bg-2:#19212A; --card:#1F2933; --line:#2E3A46;
+  --ink:#F3EFE8; --ink-soft:#A9B4BE;
+  --sun:#FF8A3D; --sun-soft:rgba(255,138,61,.14);
+  --sea:#3FC1B0; --sea-soft:rgba(63,193,176,.14);
+  --line-green:#06C755;
+  --on-sun:#1B0F05; --on-sea:#06201C;
+  --sun-fill:var(--sun); --sea-fill:var(--sea);
+  --header-bg:rgba(18,23,29,.86);
+  --hero-veil:linear-gradient(to top,rgba(12,16,20,.96) 0%,rgba(12,16,20,.7) 45%,rgba(12,16,20,.35) 100%);
+  --hero-ink:#F7F3EC; --hero-chip-bg:rgba(16,20,26,.55); --hero-chip-line:rgba(247,243,236,.34);
+  --latin:"Archivo Black","Zen Kaku Gothic New",sans-serif;
   --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
-  --display:var(--serif);        /* 見出しに使う書体 */
-  --display-ls:.055em;           /* 見出しの字間 */
-  --display-weight:700;
 }
-/* B ゴシック：見出しもゴシック。すっきり現代的に */
-:root[data-font="gothic"]{
-  --display:var(--sans);
-  --display-ls:.01em;            /* ゴシックは字間を詰めた方が締まる */
-  --display-weight:700;
+/* ② 海：明るい浅瀬の水色。昼の島のイメージ */
+:root[data-theme="sea"]{
+  --bg:#EFF8F7; --bg-2:#DCEFEC; --card:#FFFFFF; --line:#BBDCD6;
+  --ink:#14302E; --ink-soft:#5A7A77;
+  --sun:#C9500E; --sun-soft:rgba(201,80,14,.12);
+  --sea:#0A7C6D; --sea-soft:rgba(10,124,109,.12);
+  --sun-fill:#F2762E; --sea-fill:#0E9C8A;
+  --on-sun:#2B1200; --on-sea:#FFFFFF;
+  --header-bg:rgba(239,248,247,.9);
+  /* 写真の上の文字は白のままなので、ベールは暗いまま残す */
+  --hero-veil:linear-gradient(to top,rgba(8,42,40,.9) 0%,rgba(8,42,40,.62) 45%,rgba(8,42,40,.3) 100%);
 }
-/* C 丸ゴシック：やわらかく、親しみやすく */
-:root[data-font="maru"]{
-  --display:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;
-  --display-ls:.02em;
-  --display-weight:700;
-}
-/* ② 夜のバー：全体を暗くして、灯りだけが浮かぶ印象 */
-:root[data-theme="bar"]{
-  --paper:#1A1512; --paper-2:#231C18; --ink:#F0E7D9; --ink-soft:#B0A395;
-  --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
-  --night:#120E0C; --night-2:#1C1715; --night-ink:#F0E7D9; --line:#3A322B;
-  --ph-a:#4A3D31; --ph-b:#2F261F; --ph-glow:rgba(232,168,74,.3);
-}
-/* ③ コミュニティ：明るく風通しよく。人が集まる昼の印象 */
-:root[data-theme="community"]{
-  --paper:#F2F5EE; --paper-2:#E2EBDD; --ink:#1F2A22; --ink-soft:#5A6B5E;
-  --walnut:#2F6B45; --lamp:#6BA368; --lamp-soft:#CBE3C2;
-  --night:#24463A; --night-2:#2F5647; --night-ink:#EEF4E9; --line:#CBD9C4;
-  --ph-a:#C3D3BB; --ph-b:#8AA286; --ph-glow:rgba(250,248,240,.2);
-}
-/* OSがダークで、まだテーマを選んでいないときは夜のバー */
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme]){
-    --paper:#1A1512; --paper-2:#231C18; --ink:#F0E7D9; --ink-soft:#B0A395;
-    --walnut:#E0BC96; --lamp:#E9AC4E; --lamp-soft:#5A4526;
-    --night:#120E0C; --night-2:#1C1715; --night-ink:#F0E7D9; --line:#3A322B;
-    --ph-a:#4A3D31; --ph-b:#2F261F; --ph-glow:rgba(232,168,74,.3);
-  }
+/* ③ ナチュラル：生成り・砂色。木と紙の質感 */
+:root[data-theme="natural"]{
+  --bg:#F7F3EB; --bg-2:#EDE6D9; --card:#FFFFFF; --line:#DCD1BE;
+  --ink:#2B2520; --ink-soft:#6E6356;
+  --sun:#A8521B; --sun-soft:rgba(168,82,27,.12);
+  --sea:#3D6E5B; --sea-soft:rgba(61,110,91,.12);
+  --sun-fill:#C96A28; --sea-fill:#4F8A72;
+  --on-sun:#2B1200; --on-sea:#FFFFFF;
+  --header-bg:rgba(247,243,235,.9);
+  --hero-veil:linear-gradient(to top,rgba(38,30,22,.9) 0%,rgba(38,30,22,.6) 45%,rgba(38,30,22,.28) 100%);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body,header,nav,section,footer,.event-card,.to-top,.theme-switch{transition:background-color .45s ease,color .45s ease,border-color .45s ease}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
-img{max-width:100%}
+body,header,section,footer,.card,.ev,.news li,.memo-inner,.theme-switch,.to-top{transition:background-color .45s ease,color .45s ease,border-color .45s ease}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.85;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}
-.wrap{width:min(1080px,100% - 40px);margin-inline:auto}
-.narrow{width:min(640px,100% - 40px);margin-inline:auto}
-h2{font-family:var(--display);font-weight:var(--display-weight);font-size:clamp(1.75rem,4.8vw,2.7rem);line-height:1.5;letter-spacing:var(--display-ls);margin-bottom:1.8rem;text-wrap:pretty}
-p+p{margin-top:1.15em}
-section{padding-block:clamp(88px,13vw,150px)}
-
-/* セクション見出しのラベル（照明のような小さな灯り） */
-@media (max-width:480px){h2{font-size:clamp(1.5rem,6.4vw,1.9rem)}}
-.eyebrow{display:flex;align-items:center;gap:.8em;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--walnut);margin-bottom:1.1rem}
-.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.55;flex:none}
-.art .eyebrow{color:var(--lamp)}
-.draft{display:inline-block;font-size:.72rem;font-weight:500;padding:.1em .7em;border-radius:99px;border:1px solid currentColor;color:var(--walnut);vertical-align:middle;letter-spacing:.05em;white-space:nowrap}
+:focus-visible{outline:2px solid var(--sun);outline-offset:3px}
+.wrap{width:min(1080px,100% - 32px);margin-inline:auto}
+section{padding-block:clamp(80px,12vw,140px)}
+h2{font-weight:900;font-size:clamp(1.7rem,4.6vw,2.6rem);line-height:1.45;letter-spacing:.02em;margin-bottom:1.6rem;text-wrap:pretty}
+p+p{margin-top:1em}
+.eyebrow{font-family:var(--latin);font-size:.8rem;letter-spacing:.24em;color:var(--sun);margin-bottom:.9rem}
+.lead{color:var(--ink-soft);max-width:36em}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:.15em .7em;border-radius:99px;white-space:nowrap;vertical-align:middle}
+.tag-sea{background:var(--sea-soft);color:var(--sea)}
+.tag-sun{background:var(--sun-soft);color:var(--sun)}
+.tag-wait{border:1px dashed var(--ink-soft);color:var(--ink-soft)}
 
 /* 写真プレースホルダー */
-.ph{position:relative;background:
-  radial-gradient(circle at 70% 30%,var(--lamp-soft),transparent 55%),
-  linear-gradient(160deg,var(--ph-a),var(--ph-b));
-  border-radius:3px;overflow:hidden;display:flex;align-items:flex-end}
+.ph{position:relative;overflow:hidden;border-radius:10px;
+  background:radial-gradient(circle at 75% 25%,rgba(255,138,61,.35),transparent 55%),linear-gradient(150deg,#26323D,#151C23)}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* 写真に暖色の灯りをのせ、店内の照明のような統一感を出す */
-.ph::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(28,20,14,.10),rgba(28,20,14,.34));
-  mix-blend-mode:multiply}
-.ph::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(120% 80% at 72% 18%,var(--ph-glow),transparent 62%)}
-.ph span{position:relative;z-index:2;font-size:.72rem;color:#F6EEE2;background:rgba(24,17,12,.6);backdrop-filter:blur(2px);padding:.35em .8em;margin:12px;border-radius:3px;line-height:1.5}
+.ph .cap{position:absolute;right:10px;top:10px;z-index:2;font-size:.68rem;color:#F3EFE8;background:rgba(10,14,18,.65);padding:.3em .8em;border-radius:4px}
+
+/* ボタン */
+.btn{display:inline-flex;align-items:center;gap:.55em;padding:.9em 1.8em;border-radius:99px;font-weight:700;font-size:.95rem;text-decoration:none;transition:transform .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-sun{background:var(--sun-fill);color:var(--on-sun)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--ink)}
+/* ヒーロー内は写真の上なので、明るい枠線と文字で固定 */
+.hero .btn-ghost{border-color:rgba(247,243,236,.55);color:#F7F3EC}
+.btn-line{background:var(--line-green);color:#fff}
+.btn svg{width:20px;height:20px;flex:none}
 
 /* header */
-header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:flex;align-items:center;gap:.55em;font-family:var(--display);font-weight:700;font-size:1.2rem;text-decoration:none;letter-spacing:.1em}
-.logo svg{width:28px;height:28px}
-nav ul{display:flex;gap:1.6rem;list-style:none;font-size:.85rem}
+body{padding-top:62px}
+header{position:fixed;top:0;left:0;right:0;z-index:10;-webkit-backdrop-filter:blur(10px);background:var(--header-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:1rem}
+.logo{font-family:var(--latin);font-size:1.5rem;letter-spacing:.12em;text-decoration:none;line-height:1}
+.logo span{color:var(--sun)}
+.logo small{font-size:.55em;letter-spacing:.2em;margin-right:.45em;color:var(--ink-soft)}
+nav ul{display:flex;gap:1.6rem;list-style:none;font-size:.85rem;align-items:center}
 nav a{text-decoration:none;color:var(--ink-soft)}
 nav a:hover{color:var(--ink)}
-/* 画面外のドロワーが横スクロールを生まないようにする */
-html,body{overflow-x:clip}
-/* ハンバーガーボタン（スマホのみ表示） */
-.menu-btn{display:none;width:44px;height:44px;margin-right:-10px;cursor:pointer;
-  align-items:center;justify-content:center;flex-direction:column;gap:5px}
-.menu-btn span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .2s}
+nav .nav-line a{color:#fff;background:var(--line-green);padding:.45em 1.1em;border-radius:99px;font-weight:700}
+.menu-btn{display:none;width:44px;height:44px;margin-right:-10px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;position:relative;z-index:14}
+.menu-btn span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .2s}
 .menu-scrim{display:none}
-
-@media (max-width:760px){
+@media (max-width:820px){
   .menu-btn{display:flex}
-  /* スクリム（背景の暗幕）。タップで閉じる */
-  .menu-scrim{position:fixed;inset:0;z-index:11;background:rgba(20,14,10,.5);
-    opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
-  /* ヘッダーを暗幕より前に出し、閉じるボタンを押せるようにする */
   header{z-index:13}
-  .menu-btn{position:relative;z-index:14}
-  nav{position:fixed;top:0;right:0;z-index:12;width:min(78vw,300px);height:100dvh;
-    background:var(--paper);border-left:1px solid var(--line);
-    padding:84px 28px 32px;overflow-y:auto;
-    transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);
-    box-shadow:-8px 0 32px rgba(20,14,10,.18)}
-  nav ul{flex-direction:column;gap:0;font-size:1rem}
+  .menu-scrim{display:block;position:fixed;inset:0;z-index:11;background:rgba(5,8,10,.6);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  nav{position:fixed;top:0;right:0;z-index:12;width:min(80vw,300px);height:100dvh;background:var(--bg-2);border-left:1px solid var(--line);padding:84px 24px 32px;overflow-y:auto;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1)}
+  nav ul{flex-direction:column;align-items:stretch;gap:0;font-size:1rem}
   nav li{border-bottom:1px solid var(--line)}
-  nav a{display:block;padding:1.1em .2em}
-  /* チェックボックスがONのとき開く */
+  nav a{display:block;padding:1em .2em}
+  nav .nav-line{border:0;margin-top:1.4rem}
+  nav .nav-line a{text-align:center;padding:.9em}
   #menu-toggle:checked ~ nav{transform:translateX(0)}
-  #menu-toggle:checked ~ .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  #menu-toggle:checked ~ .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   #menu-toggle:checked ~ .menu-btn span:nth-child(2){opacity:0}
-  #menu-toggle:checked ~ .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  #menu-toggle:checked ~ .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   body:has(#menu-toggle:checked) .menu-scrim{opacity:1;visibility:visible}
   body:has(#menu-toggle:checked){overflow:hidden}
-  /* 開いている間はヘッダーの地色を消し、ドロワーと重ならないようにする */
-  body:has(#menu-toggle:checked) header{background:transparent;backdrop-filter:none;border-bottom-color:transparent}
-  body:has(#menu-toggle:checked) .logo{opacity:0;pointer-events:none}
 }
-
-/* テーマ切替（デモ用。公開時はこのブロックごと削除できます） */
-.theme-switch{position:fixed;right:80px;bottom:20px;z-index:9;
-  display:flex;align-items:center;gap:6px;
-  padding:7px 9px;border-radius:99px;
-  background:color-mix(in srgb,var(--paper) 92%,transparent);
-  border:1px solid var(--line);backdrop-filter:blur(8px);
-  box-shadow:0 4px 18px rgba(20,14,10,.16)}
-.theme-switch .lbl{font-size:.66rem;letter-spacing:.1em;color:var(--ink-soft);padding-left:5px}
-.theme-switch button{width:26px;height:26px;border-radius:50%;cursor:pointer;
-  border:1.5px solid var(--line);padding:0;
-  transition:transform .2s,border-color .2s}
-.theme-switch button:hover{transform:scale(1.12)}
-.theme-switch button[aria-pressed="true"]{border-color:var(--lamp);border-width:2.5px}
-/* 各ボタンは、そのテーマの地色と差し色を実際に見せる */
-.sw-warm{background:linear-gradient(135deg,#F4EFE7 50%,#D8913A 50%)}
-.sw-bar{background:linear-gradient(135deg,#1A1512 50%,#E9AC4E 50%)}
-.sw-community{background:linear-gradient(135deg,#E2EBDD 50%,#2F6B45 50%)}
-/* 書体ボタンは「あ」の形そのもので違いを見せる */
-.theme-switch .fnt{width:auto;min-width:28px;height:26px;border-radius:13px;
-  background:transparent;color:var(--ink);font-size:.95rem;line-height:1;
-  padding:0 7px;font-weight:700}
-.fnt-mincho{font-family:"Zen Old Mincho",serif}
-.fnt-gothic{font-family:"Zen Kaku Gothic New",sans-serif}
-.fnt-maru{font-family:"Zen Maru Gothic",sans-serif}
-.theme-switch .sep{width:1px;height:20px;background:var(--line);margin:0 2px;flex:none}
-@media (max-width:760px){
-  .theme-switch{right:70px;bottom:16px;padding:6px 8px;gap:5px}
-  .theme-switch .lbl{display:none}
-  .theme-switch button{width:24px;height:24px}
-}
-
-/* 打ち合わせメモ（デモ用。公開時はこのブロックと該当要素を削除してください） */
-.memo-btn{position:fixed;left:20px;bottom:20px;z-index:9;
-  display:inline-flex;align-items:center;gap:.5em;cursor:pointer;
-  padding:.65em 1.1em;border-radius:99px;font-size:.78rem;font-weight:700;
-  background:var(--walnut);color:var(--paper);border:0;
-  box-shadow:0 4px 18px rgba(20,14,10,.28)}
-.memo-btn:hover{filter:brightness(1.12)}
-.memo-panel{position:fixed;inset:0;z-index:20;display:none;
-  align-items:center;justify-content:center;padding:20px;
-  background:rgba(18,12,8,.6);backdrop-filter:blur(3px)}
-.memo-panel[open]{display:flex}
-.memo-inner{background:var(--paper);color:var(--ink);border:1px solid var(--line);
-  border-radius:8px;max-width:640px;width:100%;max-height:82vh;overflow-y:auto;
-  padding:clamp(24px,4vw,36px);box-shadow:0 12px 48px rgba(20,14,10,.4)}
-.memo-inner h3{font-family:var(--display);font-size:1.3rem;margin-bottom:.4rem}
-.memo-inner .memo-lead{font-size:.86rem;color:var(--ink-soft);margin-bottom:1.6rem}
-.memo-inner h4{font-size:.92rem;font-weight:700;color:var(--walnut);
-  margin:1.6rem 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
-.memo-inner ul{margin:0;padding-left:1.2em;font-size:.88rem;line-height:1.85}
-.memo-inner li{margin-bottom:.3em}
-.memo-tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;
-  padding:.15em .6em;border-radius:3px;background:var(--lamp-soft);color:var(--walnut);margin-right:.4em}
-.memo-close{display:block;margin:1.8rem 0 0 auto;cursor:pointer;
-  padding:.6em 1.6em;border-radius:99px;font-size:.85rem;font-weight:700;
-  background:var(--walnut);color:var(--paper);border:0}
-/* スマホでは配色切替と重なるため、1段上に置く */
-@media (max-width:760px){.memo-btn{left:16px;bottom:70px;padding:.6em .9em;font-size:.72rem}}
-
-/* 上に戻るボタン */
-.to-top{position:fixed;right:20px;bottom:20px;z-index:9;
-  width:48px;height:48px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--walnut);color:var(--paper);
-  box-shadow:0 4px 18px rgba(20,14,10,.3);
-  opacity:0;visibility:hidden;transform:translateY(10px);
-  transition:opacity .3s,visibility .3s,transform .3s}
-.to-top svg{width:20px;height:20px}
-.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-.to-top:hover{filter:brightness(1.12)}
-@media (max-width:760px){.to-top{right:16px;bottom:16px;width:44px;height:44px}}
 
 /* hero */
-.hero{padding:0;position:relative;overflow:hidden}
-.hero .ph{height:min(92vh,820px);border-radius:0}
-.hero .ph::before{background:
-  linear-gradient(to top,rgba(18,12,8,.92) 0%,rgba(18,12,8,.74) 38%,rgba(18,12,8,.5) 70%,rgba(18,12,8,.42) 100%);
-  mix-blend-mode:normal}
-.hero-copy{position:absolute;inset:auto 0 0 0;z-index:3;color:#FBF6EE;padding-bottom:clamp(56px,9vw,104px)}
-.hero h1{font-family:var(--display);font-weight:var(--display-weight);font-size:clamp(2rem,6.4vw,3.9rem);line-height:1.42;letter-spacing:var(--display-ls);max-width:15em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
-.hero .sub{margin-top:1.5rem;font-size:clamp(1rem,2.4vw,1.25rem);line-height:1.9;opacity:.94}
-.hero .meta{margin-top:1.6rem;padding-top:1.4rem;font-size:.82rem;letter-spacing:.16em;opacity:.85;position:relative}
-.hero .meta::before{content:"";position:absolute;top:0;left:0;width:56px;height:1px;background:rgba(246,238,226,.45)}
-.hero .btn{display:flex;width:fit-content}
-.btn{display:inline-flex;align-items:center;gap:.6em;margin-top:2.2rem;padding:.95em 2em;border-radius:99px;background:var(--lamp);color:#241708;font-weight:700;text-decoration:none;font-size:.95rem;box-shadow:0 6px 28px rgba(216,145,58,.3);transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(216,145,58,.42)}
-.hero .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .ph span{position:absolute;top:0;right:0;z-index:4}
-/* ランプの灯りのゆらぎ */
-.glow{position:absolute;z-index:2;width:420px;height:420px;right:10%;top:10%;border-radius:50%;background:radial-gradient(circle,rgba(243,190,110,.5),transparent 66%);animation:breathe 7s ease-in-out infinite;pointer-events:none}
-@keyframes breathe{50%{opacity:.62;transform:scale(1.07)}}
-/* スクロールを促す細い線 */
-.scroll-cue{position:absolute;left:50%;bottom:18px;z-index:3;width:1px;height:46px;background:linear-gradient(to bottom,transparent,rgba(246,238,226,.7));animation:cue 2.6s ease-in-out infinite}
-@keyframes cue{50%{opacity:.25;transform:scaleY(.6)}}
-@media (max-width:760px){.scroll-cue{display:none}}
+.hero{padding:0;position:relative;min-height:min(calc(100svh - 62px),820px);display:flex;align-items:flex-end}
+.hero .ph{position:absolute;inset:0;border-radius:0}
+.hero .ph::after{content:"";position:absolute;inset:0;background:var(--hero-veil)}
+.hero-copy{position:relative;z-index:2;padding-bottom:clamp(56px,9vw,100px);width:100%;color:#F7F3EC}
+.hero .brand{font-family:var(--latin);font-size:clamp(4.2rem,17vw,10rem);line-height:.9;letter-spacing:.06em}
+.hero .brand span{color:var(--sun)}
+.hero .brand small{display:block;font-size:.22em;letter-spacing:.5em;color:#F7F3EC;text-shadow:0 2px 12px rgba(0,0,0,.6);margin-bottom:.5em}
+.hero-meta li.open{background:var(--sun-fill);color:var(--on-sun);border-color:var(--sun-fill)}
+.hero h1{font-weight:900;font-size:clamp(1.45rem,4.4vw,2.4rem);line-height:1.5;margin-top:1.2rem}
+.hero h1 em{font-style:normal;color:var(--sun)}
+.hero .sub{margin-top:.8rem;color:rgba(247,243,236,.82);font-size:clamp(.95rem,2.2vw,1.1rem)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
+.hero-meta li{list-style:none;font-size:.85rem;font-weight:700;padding:.35em 1em;border:1px solid var(--hero-chip-line);border-radius:99px;background:var(--hero-chip-bg);color:var(--hero-ink)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 
-/* intro（まずは、普通に一杯。） */
-.intro{background:var(--paper-2)}
-.intro .narrow{text-align:center}
-.intro .eyebrow{justify-content:center}
-.intro .eyebrow::before{display:none}
-.intro p{font-size:1.06rem}
-.intro .place{display:inline-block;margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid var(--line);font-size:.88rem;color:var(--ink-soft);letter-spacing:.14em}
+/* about（店名の由来） */
+.about{background:var(--bg-2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.name-card{border:1px solid var(--line);border-radius:14px;padding:clamp(28px,5vw,44px);background:var(--card);text-align:center}
+.name-card .big{font-family:var(--latin);font-size:clamp(3rem,9vw,4.6rem);letter-spacing:.08em;line-height:1}
+.name-card .big span{color:var(--sun)}
+.name-card .big small{display:block;font-size:.3em;letter-spacing:.5em;color:var(--ink-soft);margin-bottom:.4em}
+.name-card .eq{margin:1.2rem 0 .4rem;font-size:1.15rem;font-weight:900}
+.name-card .eq b{color:var(--sun);font-size:1.4rem}
+.name-card small{display:block;color:var(--ink-soft);font-size:.82rem}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr}}
 
-/* about */
-.about .narrow{text-align:left;width:min(720px,100% - 40px)}
-.about .lead{font-family:var(--display);font-size:clamp(1.15rem,2.6vw,1.35rem);line-height:1.85;color:var(--walnut);margin-bottom:.4rem}
+/* features */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:2.4rem}
+@media (max-width:960px){.features{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.features{grid-template-columns:1fr}}
+.features>li{list-style:none;display:flex}
+.feat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.6rem 1.4rem 1.7rem;display:flex;flex-direction:column;gap:.6rem}
+.feat .ic{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--sun-soft);color:var(--sun)}
+.features>li:nth-child(even) .feat .ic{background:var(--sea-soft);color:var(--sea)}
+.feat .ic svg{width:24px;height:24px}
+.feat h3{font-size:1.08rem;font-weight:900;line-height:1.5}
+.feat p{font-size:.9rem;color:var(--ink-soft);line-height:1.75}
+/* 飛び先のある特徴は、カード全体をタップできるようにする */
+a.feat{text-decoration:none;color:inherit;transition:border-color .2s,transform .2s}
+a.feat:hover{border-color:var(--sun);transform:translateY(-2px)}
+.feat .more{margin-top:auto;padding-top:.6rem;font-size:.82rem;font-weight:700;color:var(--sun)}
 
-/* scenes（通常バーとしての利用シーン） */
-.scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,32px);margin-bottom:clamp(56px,8vw,88px)}
-@media (max-width:900px){.scenes{grid-template-columns:1fr 1fr}}
-@media (max-width:480px){.scenes{grid-template-columns:1fr}}
-.scene .ph{aspect-ratio:3/2;margin-bottom:1.1rem;transition:transform .45s ease}
-.scene:hover .ph{transform:translateY(-4px)}
-.scene h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.4rem}
-.scene p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
-.cando{background:var(--paper-2)}
-.sub-head{font-family:var(--display);font-size:clamp(1.15rem,3vw,1.4rem);letter-spacing:.06em;margin-bottom:1.4rem;padding-top:clamp(40px,6vw,56px);border-top:1px solid var(--line)}
-
-/* story */
-.story{background:var(--paper)}
-.story-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,80px);align-items:start}
-.story .ph{aspect-ratio:4/5;position:sticky;top:90px}
-.story h3{font-family:var(--display);font-size:1.18rem;margin:2.6rem 0 .7rem;color:var(--walnut);padding-left:.9em;border-left:2px solid var(--lamp)}
-.story blockquote{font-family:var(--display);font-size:clamp(1.25rem,3.1vw,1.6rem);line-height:1.75;padding:1.6rem 0;margin:2.8rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--walnut)}
-@media (max-width:760px){.story-grid{grid-template-columns:1fr}.story .ph{position:static;aspect-ratio:4/3}}
-
-/* can do */
-.cando-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--line)}
-.cando-list li{list-style:none;padding:1.7rem 1.6rem 1.9rem 0;border-bottom:1px solid var(--line);transition:background .25s}
-.cando-list li:hover{background:color-mix(in srgb,var(--lamp) 7%,transparent)}
-.cando-list h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
-.cando-list p{font-size:.92rem;color:var(--ink-soft);line-height:1.8}
-.note{font-size:.82rem;color:var(--ink-soft);margin-top:1.4rem}
-
-/* art */
-.art{background:var(--night);color:var(--night-ink)}
-.art .draft{color:var(--lamp)}
-.art .lead-copy{max-width:34em;margin-bottom:clamp(44px,6vw,64px)}
-.art .lead-copy p{color:color-mix(in srgb,var(--night-ink) 82%,transparent)}
-/* 作品を主役に。作家名を作品と同格で並べる */
-.works{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,28px)}
-.work .ph{aspect-ratio:4/5;margin-bottom:.9rem;transition:transform .45s ease}
-.work:hover .ph{transform:translateY(-5px)}
-.work h3{font-family:var(--display);font-size:1.05rem;font-weight:500;letter-spacing:.04em}
-.work .artist{display:block;font-size:.8rem;color:var(--lamp);letter-spacing:.1em;margin-top:.35rem}
-.art .note{color:color-mix(in srgb,var(--night-ink) 62%,transparent);margin-top:2.4rem}
-@media (max-width:760px){.works{grid-template-columns:1fr 1fr}}
-@media (max-width:420px){.works{grid-template-columns:1fr}}
-
-/* nurse */
-.nurse-grid{display:grid;grid-template-columns:6fr 5fr;gap:clamp(32px,6vw,80px);align-items:center}
-.nurse .ph{aspect-ratio:1}
-.nurse ul{list-style:none;margin:1.6rem 0;display:flex;flex-wrap:wrap;gap:.5rem}
-.nurse ul li{border:1px solid var(--line);border-radius:99px;padding:.3em 1em;font-size:.9rem}
-@media (max-width:760px){.nurse-grid{grid-template-columns:1fr}.nurse .ph{order:-1;aspect-ratio:4/3}}
+/* menu */
+.menu{background:var(--bg-2)}
+.menu-head{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.menu-head li{list-style:none;font-weight:700;font-size:.9rem;padding:.4em 1.1em;border-radius:6px;background:var(--card);border:1px solid var(--line)}
+.nomi{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,48px);align-items:center;padding:clamp(24px,4vw,36px);border-radius:14px;margin-bottom:2rem;
+  background:linear-gradient(120deg,rgba(255,138,61,.18),rgba(63,193,176,.1));border:1px solid rgba(255,138,61,.45)}
+.nomi .price{font-family:var(--latin);font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;color:var(--sun)}
+.nomi .price small{display:block;font-family:var(--sans);font-weight:900;font-size:1rem;color:var(--ink);margin-bottom:.5rem;letter-spacing:.06em}
+.nomi .price em{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;font-weight:700;color:var(--ink-soft);margin-top:.5rem}
+.nomi dl{display:grid;grid-template-columns:4.5em 1fr;gap:.4rem .8rem;font-size:.92rem}
+.nomi dt{font-weight:900}
+.nomi dt.ok{color:var(--sea)} .nomi dt.ng{color:var(--ink-soft)}
+@media (max-width:600px){.nomi{grid-template-columns:1fr}}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+@media (max-width:360px){.menu-grid{grid-template-columns:1fr}}
+.mcat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.4rem 1.2rem}
+.mcat h3{font-size:1.05rem;font-weight:900;margin-bottom:.2rem;display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.mcat .desc{font-size:.8rem;color:var(--ink-soft);margin-bottom:.7rem}
+.mcat ul{list-style:none}
+.mcat li{display:flex;justify-content:space-between;gap:1em;padding:.5rem 0;border-top:1px dashed var(--line);font-size:.95rem}
+.mcat li b{font-family:var(--latin);font-weight:400;letter-spacing:.04em;white-space:nowrap}
+.mcat.soon{border-style:dashed;background:transparent}
+.mcat.soon p{font-size:.9rem;color:var(--ink-soft)}
+.menu .note{font-size:.8rem;color:var(--ink-soft);margin-top:1.4rem}
 
 /* events */
-.events{background:var(--paper-2)}
-.event-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,28px)}
-.event-card{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
-.event-card .ph{aspect-ratio:16/9;border-radius:0}
-.event-body{padding:1.4rem 1.4rem 1.6rem}
-.event-card h3{font-family:var(--display);font-size:1.15rem;line-height:1.6;margin:.5rem 0 .8rem}
-.event-meta{display:grid;grid-template-columns:4.5em 1fr;row-gap:.3rem;font-size:.88rem;color:var(--ink-soft)}
-.event-meta dt{font-weight:500;padding:0;border:0}
-.event-meta dd{padding:0;border:0}
-.sample-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.2em .8em;border-radius:99px;background:var(--lamp-soft);color:var(--walnut)}
-/* 仮情報であることを、カード上部の帯ではっきり示す */
-.sample-bar{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-align:center;
-  padding:.5em .6em;background:var(--lamp-soft);color:var(--walnut);
-  border-bottom:1px dashed color-mix(in srgb,var(--walnut) 45%,transparent)}
-.event-card{border-style:dashed}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.ev-grid{grid-template-columns:1fr}}
+.ev{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3.5vw,32px);display:flex;flex-direction:column}
+.ev .floor{align-self:flex-start;font-family:var(--latin);font-size:.78rem;letter-spacing:.12em;padding:.25em .8em;border-radius:6px;background:var(--sea-soft);color:var(--sea);margin-bottom:.9rem}
+.ev h3{font-size:1.25rem;font-weight:900;line-height:1.5;margin-bottom:.9rem}
+.ev dl{display:grid;grid-template-columns:4em 1fr;gap:.35rem .8rem;font-size:.92rem;color:var(--ink-soft)}
+.ev dt{font-weight:700;color:var(--ink)}
+.next{margin:1.3rem 0 1.4rem;padding:1rem 1.1rem;border-radius:10px;background:var(--sun-soft)}
+.next .lbl{font-size:.75rem;font-weight:700;color:var(--sun);letter-spacing:.1em}
+.next .date{font-size:1.35rem;font-weight:900;line-height:1.5}
+.next .after{font-size:.8rem;color:var(--ink-soft)}
+.ev .btn{margin-top:auto;align-self:flex-start;padding:.7em 1.4em;font-size:.88rem}
+.news{margin-top:clamp(40px,6vw,64px)}
+.news h3{font-size:1.15rem;font-weight:900;margin-bottom:1rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
+.news ul{list-style:none;border-top:1px solid var(--line)}
+.news li{display:grid;grid-template-columns:7.5em 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.news time{font-family:var(--latin);font-size:.85rem;color:var(--sun);letter-spacing:.05em}
+.news p{font-size:.95rem}
+.news p small{display:block;color:var(--ink-soft);font-size:.82rem}
+@media (max-width:520px){.news li{grid-template-columns:1fr;gap:.2rem}}
 
-/* faq */
-.faq details{border-bottom:1px solid var(--line)}
-.faq details:first-of-type{border-top:1px solid var(--line)}
-.faq summary{cursor:pointer;list-style:none;padding:1.4rem 2.4rem 1.4rem 0;font-weight:700;position:relative;transition:color .2s}
-.faq summary:hover{color:var(--walnut)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:.4rem;top:50%;transform:translateY(-50%);font-size:1.4rem;font-weight:400;color:var(--walnut);transition:transform .2s}
-.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
-.faq details p{padding-bottom:1.4rem;color:var(--ink-soft)}
+/* space（2階） */
+.space{background:var(--bg-2)}
+.space-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,72px);align-items:center}
+.space .ph{aspect-ratio:4/3}
+.space ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 2rem}
+.space ul li{border:1px solid var(--line);border-radius:99px;padding:.3em 1em;font-size:.9rem}
+@media (max-width:760px){.space-grid{grid-template-columns:1fr}}
+
+/* art */
+.art-grid{display:grid;grid-template-columns:6fr 5fr;gap:clamp(32px,6vw,72px);align-items:center}
+.works{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.works .ph{aspect-ratio:1;display:grid;place-items:center;color:var(--ink-soft);font-size:.8rem;border:1px dashed var(--line);background:var(--card)}
+.works .ph:first-child{grid-row:span 2;aspect-ratio:auto}
+.artist{font-size:1.4rem;font-weight:900;margin:1rem 0 .4rem}
+.artist small{font-size:.85rem;font-weight:500;color:var(--ink-soft);margin-left:.4em}
+.ig{display:inline-flex;align-items:center;gap:.5em;margin-top:1.4rem;color:var(--sun);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:.1em}
+.ig svg{width:18px;height:18px}
+@media (max-width:760px){.art-grid{grid-template-columns:1fr}.works{order:-1}}
 
 /* info */
 .info{border-top:1px solid var(--line)}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,72px)}
-dl{display:grid;grid-template-columns:7em 1fr;row-gap:0}
-dt,dd{padding:.9rem 0;border-bottom:1px solid var(--line)}
-dt{font-weight:700;font-size:.9rem}
-dd.tbd{color:var(--ink-soft)}
-.map{min-height:300px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.map iframe{display:block;width:100%;height:100%;min-height:300px;border:0;filter:saturate(.9)}
-dd small{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:.2rem}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,64px)}
+.info dl{display:grid;grid-template-columns:6.5em 1fr}
+.info dt,.info dd{padding:.9rem 0;border-bottom:1px solid var(--line)}
+.info dt{font-weight:700;font-size:.9rem;color:var(--ink-soft)}
+.info dd a{color:var(--sun)}
+.map{min-height:320px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.map iframe{display:block;width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.3) brightness(.9)}
 @media (max-width:760px){.info-grid{grid-template-columns:1fr}}
 
 /* closing */
-.closing{text-align:center;position:relative;overflow:hidden;background:var(--paper-2)}
-.closing::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 0%,color-mix(in srgb,var(--lamp) 16%,transparent),transparent 70%)}
-.closing .narrow{position:relative}
-.closing .smile{width:72px;height:72px;margin:0 auto 1.8rem;color:var(--lamp)}
-.closing p.big{font-family:var(--display);font-size:clamp(1.4rem,4vw,2rem);line-height:1.7}
-.closing .addr{margin-top:2.4rem;padding-top:2rem;border-top:1px solid var(--line);font-size:.95rem;line-height:2;color:var(--ink-soft)}
-.closing .addr strong{display:block;font-family:var(--display);font-size:1.15rem;color:var(--ink);letter-spacing:.1em;margin-bottom:.4rem}
+.closing{text-align:center;background:radial-gradient(70% 60% at 50% 0%,rgba(255,138,61,.18),transparent 70%),var(--bg-2)}
+.closing .big{font-weight:900;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.5}
+.closing .big em{font-style:normal;color:var(--sun)}
+.closing p{color:var(--ink-soft);margin-top:1rem}
+.closing .hero-cta{justify-content:center}
 
-footer{background:var(--night);color:var(--night-ink);padding:2.4rem 0;font-size:.8rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;opacity:.8}
+footer{border-top:1px solid var(--line);padding:2.4rem 0;font-size:.8rem;color:var(--ink-soft)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer .logo{font-size:1.1rem;color:var(--ink)}
+
+/* 上に戻るボタン */
+.to-top{position:fixed;right:16px;bottom:16px;z-index:9;width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--sun-fill);color:var(--on-sun);
+  box-shadow:0 4px 18px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .3s,visibility .3s,transform .3s}
+.to-top svg{width:22px;height:22px}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{filter:brightness(1.08)}
+section[id]{scroll-margin-top:62px}
+
+/* イメージ確認用メモ（公開時はこのブロックと該当要素を削除） */
+.memo-btn{position:fixed;left:16px;bottom:16px;z-index:9;cursor:pointer;padding:.65em 1.1em;border-radius:99px;font:700 .78rem var(--sans);background:var(--sea-fill);color:var(--on-sea);border:0;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+/* 配色切替（イメージ確認用。公開時はこのブロックと該当要素を削除） */
+.theme-switch{position:fixed;right:76px;bottom:16px;z-index:9;display:flex;align-items:center;gap:6px;
+  padding:7px 9px;border-radius:99px;background:color-mix(in srgb,var(--bg-2) 92%,transparent);
+  border:1px solid var(--line);backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.theme-switch .lbl{font-size:.66rem;letter-spacing:.08em;color:var(--ink-soft);padding-left:4px}
+.theme-switch button{width:26px;height:26px;border-radius:50%;cursor:pointer;border:1.5px solid var(--line);padding:0;
+  transition:transform .2s,border-color .2s}
+.theme-switch button:hover{transform:scale(1.12)}
+.theme-switch button[aria-pressed="true"]{border-color:var(--sun);border-width:2.5px}
+.sw-now{background:linear-gradient(135deg,#12171D 50%,#FF8A3D 50%)}
+.sw-sea{background:linear-gradient(135deg,#DCEFEC 50%,#0E9C8A 50%)}
+.sw-natural{background:linear-gradient(135deg,#EDE6D9 50%,#C96A28 50%)}
+@media (max-width:760px){.theme-switch{right:70px;padding:6px 8px}.theme-switch .lbl{display:none}}
+
+.memo-panel{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(5,8,10,.7)}
+.memo-panel[open]{display:flex}
+.memo-inner{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;max-width:600px;width:100%;max-height:84vh;overflow-y:auto;padding:clamp(22px,4vw,34px)}
+.memo-inner h3{font-size:1.2rem;font-weight:900;margin-bottom:.3rem}
+.memo-inner h4{font-size:.9rem;color:var(--sun);margin:1.4rem 0 .4rem}
+.memo-inner ul{padding-left:1.2em;font-size:.88rem;color:var(--ink-soft)}
+.memo-close{display:block;margin:1.6rem 0 0 auto;cursor:pointer;padding:.6em 1.6em;border-radius:99px;font:700 .85rem var(--sans);background:var(--sun-fill);color:var(--on-sun);border:0}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a href="#top" class="logo" aria-label="笑顔BASE トップへ">
-      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 18.5c1.6 3 4 4.5 6.5 4.5s4.9-1.5 6.5-4.5" stroke="#E4A03C" stroke-width="2.2" stroke-linecap="round"/><circle cx="11.5" cy="13" r="1.4" fill="currentColor"/><circle cx="20.5" cy="13" r="1.4" fill="currentColor"/></svg>
-      笑顔BASE
-    </a>
+    <a href="#top" class="logo" aria-label="BAR NIMO トップへ"><small>BAR</small>NI<span>MO</span></a>
     <input type="checkbox" id="menu-toggle" hidden>
     <label for="menu-toggle" class="menu-btn" aria-label="メニューを開く">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </label>
     <nav aria-label="ページ内メニュー">
       <ul>
-        <li><a href="#about">笑顔BASEとは</a></li>
-        <li><a href="#cando">できること</a></li>
-        <li><a href="#story">つくった理由</a></li>
-        <li><a href="#events">イベント</a></li>
-        <li><a href="#first">初めての方へ</a></li>
-        <li><a href="#info">店舗情報</a></li>
+        <li><a href="#about">BAR NIMOとは</a></li>
+        <li><a href="#menu">メニュー</a></li>
+        <li><a href="#event">イベント</a></li>
+        <li><a href="#space">2階スペース</a></li>
+        <li><a href="#art">アート</a></li>
+        <li><a href="#info">アクセス</a></li>
+        <li class="nav-line"><a href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">LINEで問い合わせ</a></li>
       </ul>
     </nav>
   </div>
@@ -374,403 +309,376 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
 
 <main id="top">
 
-<!-- ① ファーストビュー -->
+<!-- ファーストビュー -->
 <section class="hero" aria-label="メインビジュアル">
-  <div class="ph"><img src="https://images.unsplash.com/photo-1739799120521-c5f44a9335a3?auto=format&fit=crop&w=2000&q=75" alt="木のカウンターと椅子が並ぶ、暖色の照明のバーの店内（イメージ）"><span>イメージ写真（差し替え予定）</span></div>
-  <div class="glow" aria-hidden="true"></div>
-  <div class="scroll-cue" aria-hidden="true"></div>
+  <div class="ph"><img src="https://images.unsplash.com/photo-1739799120521-c5f44a9335a3?auto=format&fit=crop&w=2000&q=75" alt="暖色の照明のバーカウンター（イメージ）"><span class="cap">イメージ写真（差し替え予定）</span></div>
   <div class="hero-copy">
     <div class="wrap">
-      <h1>看護の外にも、<br>安心と笑顔が生まれる場所を。</h1>
-      <p class="sub">飲む。話す。つながる。<br>ここから、何かが始まる。</p>
-      <p class="meta">福岡・井尻｜18:00〜1:00</p>
-      <a class="btn" href="#about">笑顔BASEについて</a>
+      <p class="brand" aria-hidden="true"><small>BAR</small>NI<span>MO</span></p>
+      <h1>あなた<em>NIMO</em> 来て欲しい。<br>井尻のカジュアルBAR。</h1>
+      <p class="sub">サッカーを観ながら。音楽を聴きながら。<br>島のお酒を片手に、気軽に一杯。</p>
+      <ul class="hero-meta">
+        <li class="open">SINCE 2026</li>
+        <li>21:00〜</li>
+        <li>日曜定休</li>
+        <li>飲み放題 1時間 2,000円</li>
+      </ul>
+      <div class="hero-cta">
+        <a class="btn btn-sun" href="#menu">メニューを見る</a>
+        <a class="btn btn-ghost" href="#info">アクセス</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ② まずは、普通に一杯。 -->
-<section class="intro">
-  <div class="narrow">
-    <p class="eyebrow">WELCOME</p>
-    <h2>まずは、普通に一杯。</h2>
-    <p>仕事帰りに、ふらっと。<br>一人でゆっくり飲みたい夜も。<br>誰かと話したい夜も。<br>仲間と楽しく過ごしたい夜も。</p>
-    <p>笑顔BASEは、井尻にある小さなバーです。<br>18時から深夜1時まで。</p>
-    <p>難しい理由は必要ありません。<br>まずは気軽に、一杯飲みに来てください。</p>
-    <p class="place">福岡市南区井尻1丁目36-8｜18:00〜1:00</p>
-  </div>
-</section>
-
-<!-- ③ 笑顔BASEとは -->
+<!-- BAR NIMOとは -->
 <section class="about" id="about">
-  <div class="narrow">
-    <p class="eyebrow">ABOUT</p>
-    <h2>ここは、<br>飲むだけの場所ではありません。</h2>
-    <p class="lead">笑顔BASEは、看護師がつくる小さなバーです。</p>
-    <p>一杯飲みながら、隣の人と話す。<br>知らなかった人と、知り合う。<br>そこから、新しいことが始まる。</p>
-    <p>医療の人も、そうでない人も。<br>一人でも、仲間とでも。<br>気軽に立ち寄れる場所にしたいと思っています。</p>
-  </div>
-</section>
-
-<!-- ④ この場所でできること -->
-<section class="cando" id="cando">
   <div class="wrap">
-    <p class="eyebrow">WHAT YOU CAN DO</p>
-    <h2>この場所で、できること。</h2>
-
-    <div class="scenes">
-      <div class="scene">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=70" alt="カウンターに置かれたグラス（イメージ）" loading="lazy"></div>
-        <h3>仕事帰りに一杯</h3>
-        <p>一日の終わりに、気軽に立ち寄る。それだけで十分です。</p>
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow">ABOUT</p>
+        <h2>あなたNIMO<br>来て欲しい。</h2>
+        <p>店名の「BAR NIMO」は、<br>「あなた<strong>NIMO</strong>（にも）来て欲しい」<br>という想いから名づけました。</p>
+        <p>一人でふらっと。仲間とわいわい。<br>サッカーの試合を観に。音楽を聴きに。<br>理由はなんでも大丈夫です。</p>
+        <p>そしてもう一つ。<br>運営する「しまnimo訪問看護」の「nimo」からも、名前をもらっています。</p>
       </div>
-      <div class="scene">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=70" alt="一人でカウンターに座る様子（イメージ）" loading="lazy"></div>
-        <h3>一人でゆっくり</h3>
-        <p>一人でも入りやすく。静かに飲む時間も、大切にします。</p>
-      </div>
-      <div class="scene">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=800&q=70" alt="仲間と乾杯する様子（イメージ）" loading="lazy"></div>
-        <h3>仲間と一緒に</h3>
-        <p>友人や仕事仲間と、話しながら過ごす夜に。</p>
-      </div>
-      <div class="scene">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=70" alt="カウンターでの会話（イメージ）" loading="lazy"></div>
-        <h3>新しい人との出会い</h3>
-        <p>カウンターでの会話から、知らなかった人とつながる。</p>
+      <div class="name-card" aria-hidden="true">
+        <p class="big"><small>BAR</small>NI<span>MO</span></p>
+        <p class="eq">あなた<b>NIMO</b> 来て欲しい</p>
+        <small>× しまnimo訪問看護 の「nimo」</small>
       </div>
     </div>
 
-    <h3 class="sub-head">そして、笑顔BASEならでは。</h3>
-    <ul class="cando-list">
-      <li><h3>医療関係者の交流 <span class="draft">構想</span></h3><p>看護・介護・福祉の仲間が、職場の外で話せる時間。</p></li>
-      <li><h3>ビジネス交流 <span class="draft">構想</span></h3><p>経営者や地域で働く人が、肩書きを置いて話せる場。</p></li>
-      <li><h3>イベント開催 <span class="draft">構想</span></h3><p>小さな集まりや勉強会に使える場所を目指します。</p></li>
-      <li><h3>作品展示 <span class="draft">構想</span></h3><p>店内の壁やカウンターで、作品を見てもらう。</p></li>
-      <li><h3>商品販売 <span class="draft">構想</span></h3><p>つくった人の商品を、ここから届ける。</p></li>
-      <li><h3>家族会・オフ会 <span class="draft">構想</span></h3><p>同じ思いを持つ人同士が、ゆっくり話せる時間。</p></li>
+    <ul class="features" aria-label="NIMOの楽しみ方">
+      <li><div class="feat">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 20.5h8M12 17v3.5"/></svg></span>
+        <h3>大画面でサッカー観戦</h3>
+        <p>1階に50インチのテレビ。試合の日はみんなで観戦、ふだんは音楽映像を流しています。</p>
+      </div></li>
+      <li><a class="feat" href="#menu">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 17c2.5-1.5 5-1.5 7.5 0s5 1.5 7.5 0 3.5-1 5-.5"/><path d="M7 14c.5-4 3-7 7-8 0 3-1 6.5-4 8"/><path d="M14 6c2 0 4 1 5 3"/></svg></span>
+        <h3>島しばりの酒</h3>
+        <p>奄美大島、屋久島、鹿児島、島根……「島」にちなんだお酒を、少しずつそろえていきます。</p>
+        <p class="more">詳しく見る →</p>
+      </a></li>
+      <li><a class="feat" href="#art">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="m3.5 16 5-5 4 4 3-3 5 5"/><circle cx="15.5" cy="8.5" r="1.5"/></svg></span>
+        <h3>アートの展示・販売</h3>
+        <p>店内には、ギンガさんの作品を展示。気に入った作品はお買い求めいただけます。</p>
+        <p class="more">詳しく見る →</p>
+      </a></li>
+      <li><a class="feat" href="#menu">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10l-1.2 16.2a2 2 0 0 1-2 1.8h-3.6a2 2 0 0 1-2-1.8z"/><path d="M7.4 8h9.2"/></svg></span>
+        <h3>飲み放題 1時間2,000円</h3>
+        <p>チャージ込みのわかりやすい料金です。</p>
+        <p class="more">詳しく見る →</p>
+      </a></li>
     </ul>
-    <p class="note">「構想」の内容は、現在準備・検討中です。決まり次第お知らせします。</p>
   </div>
 </section>
 
-<!-- ⑤ なぜ看護師がバーをつくるのか -->
-<section class="story" id="story">
-  <div class="wrap story-grid">
-    <div class="ph"><img src="https://images.unsplash.com/photo-1651153623469-f92d241ec571?auto=format&fit=crop&w=1200&q=70" alt="テーブルでくつろぐ人（イメージ）" loading="lazy"><span>イメージ写真：経営者の写真に差し替え予定</span></div>
-    <div>
-      <p class="eyebrow">STORY</p>
-      <h2>看護師が、<br>バーをつくった理由。</h2>
-      <p>わたしは、訪問看護の仕事をしています。<br>人に寄り添う。支える。安心できる関係をつくる。<br>その大切さを、毎日の現場で感じてきました。</p>
-
-      <h3>好きな仕事を、長く続けるために</h3>
-      <p>訪問看護は、人が人を支える仕事です。<br>でも、一人が一日に回れる件数には限りがあります。<br>報酬も、自分たちで決められるものではありません。</p>
-      <p>この仕事を長く続けるには、新しい柱が必要。<br>そう考えるようになりました。</p>
-
-      <h3>興味のないことは、やりたくなかった</h3>
-      <p>ただ、お金のためだけに、<br>気持ちの入らない事業を始めたくはありませんでした。</p>
-      <p>考えてたどり着いたのが、<br>「人が集まる場所をつくる」ということです。</p>
-
-      <blockquote>現場で大事にしてきた安心を、<br>病院や訪問先の外にも。</blockquote>
-
-      <p>一杯をきっかけに、人が自然に集まれる場所をつくりたい。<br>立場が違っても、話せばつながれる。<br>つながれば、何かが動き出す。<br>笑顔BASEは、そのための場所です。</p>
-      <!-- 経営者ヒアリング後に本人の言葉へ差し替え -->
-    </div>
-  </div>
-</section>
-
-<!-- ⑥ ART / CHALLENGE -->
-<section class="art" id="art">
+<!-- メニュー -->
+<section class="menu" id="menu">
   <div class="wrap">
-    <p class="eyebrow">ART / CHALLENGE</p>
-    <h2>誰かの「やってみたい」を、<br>ここから。</h2>
-    <div class="lead-copy">
-      <p>絵を描く人。ものをつくる人。<br>その作品を、見て、手に取って、気に入ってもらう。</p>
-      <p>ここは、作品と、つくった人に出会える場所です。<br>つくり手が活躍できる場所にしていきたいと思っています。</p>
+    <p class="eyebrow">DRINK MENU</p>
+    <h2>メニュー</h2>
+    <ul class="menu-head">
+      <li>チャージ ¥500</li>
+      <li>表示価格は税抜き（別途10%）</li>
+    </ul>
+
+    <div class="nomi">
+      <p class="price"><small>飲み放題</small>¥2,000<em>1時間／チャージ込み</em></p>
+      <dl>
+        <dt class="ok">対象</dt><dd>角ウイスキー（ハイボール・ロック）、一部の焼酎、カクテル など</dd>
+        <dt class="ng">対象外</dt><dd>ビール、シャンパン、島しばりの焼酎</dd>
+      </dl>
     </div>
-    <!-- 作品・作家名は実際の展示が決まり次第、実データへ差し替え -->
-    <div class="works">
-      <div class="work">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=70" alt="手づくりの器（イメージ）" loading="lazy"><span>作品イメージ</span></div>
-        <h3>うつわ</h3><span class="artist">作家名</span>
+
+    <div class="menu-grid">
+      <div class="mcat">
+        <h3>カクテル <span class="tag tag-sea">飲み放題OK</span></h3>
+        <p class="desc">カシス・パッソア・ディタ など</p>
+        <ul><li>各種<b>¥700</b></li></ul>
       </div>
-      <div class="work">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=800&q=70" alt="色彩豊かな抽象画（イメージ）" loading="lazy"><span>作品イメージ</span></div>
-        <h3>絵画</h3><span class="artist">作家名</span>
+      <div class="mcat">
+        <h3>ウイスキー（角） <span class="tag tag-sea">飲み放題OK</span></h3>
+        <p class="desc">定番の角を、ハイボールかロックで</p>
+        <ul><li>角ハイボール<b>¥700</b></li><li>角ロック<b>¥700</b></li></ul>
       </div>
-      <div class="work">
-        <div class="ph"><img src="https://images.unsplash.com/photo-1577576223085-3eb295cd414f?auto=format&fit=crop&w=800&q=70" alt="手仕事の作品（イメージ）" loading="lazy"><span>作品イメージ</span></div>
-        <h3>手仕事のもの</h3><span class="artist">作家名</span>
+      <div class="mcat">
+        <h3>焼酎 <span class="tag tag-sea">一部 飲み放題OK</span></h3>
+        <p class="desc">麦・芋・しそ・ジャスミン・梅酒／水割り・茶割り・ロック</p>
+        <ul><li>グラス<b>¥650</b></li><li>ピッチャー<b>¥2,800</b></li></ul>
+      </div>
+      <div class="mcat">
+        <h3>ウイスキー各種</h3>
+        <p class="desc">角以外のウイスキー／ストレート・ロック</p>
+        <ul><li>シングル<b>¥650</b></li><li>ダブル<b>¥1,000</b></li><li>ハイボール<b>¥1,000</b></li></ul>
+      </div>
+      <div class="mcat">
+        <h3>ビール・サワーほか</h3>
+        <ul><li>ビール（缶）<b>¥700</b></li><li>缶チューハイ<b>¥700</b></li><li>レモンサワー<b>¥700</b></li><li>グラスワイン<b>¥700</b></li></ul>
+      </div>
+      <div class="mcat">
+        <h3>ショット・ソフトドリンク</h3>
+        <ul><li>ショット（テキーラなど）<b>¥800</b></li><li>ソフトドリンク<b>¥500</b></li></ul>
+      </div>
+      <div class="mcat">
+        <h3>シャンパン</h3>
+        <ul><li>オリジナルシャンパン<b>¥12,500</b></li></ul>
+      </div>
+      <div class="mcat soon">
+        <h3>島しばりの酒</h3>
+        <p>「島」にちなんだお酒を、少しずつそろえていきます。</p>
       </div>
     </div>
-    <p class="note">展示・販売する作品については、これから少しずつご紹介していきます。<span class="draft">構想</span></p>
+    <p class="note">※ 価格はすべて税抜きです。メニューは変わることがあります。</p>
   </div>
 </section>
 
-<!-- ⑦ イベント・活動 -->
-<section class="events" id="events">
+<!-- イベント（公開時は管理画面から出力） -->
+<section class="events" id="event">
   <div class="wrap">
     <p class="eyebrow">EVENT</p>
-    <h2>イベント・活動</h2>
-    <p class="note" style="margin-top:-.8rem;margin-bottom:2.4rem">以下は表示イメージのサンプルです。内容・日時・参加費は決まり次第、こことInstagramでお知らせします。</p>
-    <!-- イベント確定後、この event-card を実データに差し替え -->
-    <div class="event-list">
-      <article class="event-card">
-        <p class="sample-bar">表示イメージ｜内容は仮です</p>
-        <div class="ph"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=70" alt="交流会の様子（イメージ）" loading="lazy"></div>
-        <div class="event-body">
-          <h3>医療・介護・福祉の交流会</h3>
-          <dl class="event-meta">
-            <dt>日時</dt><dd>10月○日（○）19:00〜</dd>
-            <dt>参加費</dt><dd>○,○○○円（1ドリンク付）</dd>
-            <dt>定員</dt><dd>○名</dd>
-          </dl>
+    <h2>昼のNIMOでは、<br>集まりをひらいています。</h2>
+    <p class="lead">夜はBAR、昼は人が集まる場所に。毎月決まった日に開いています。参加費やお申し込みは、公式LINEでご案内します。</p>
+
+    <div class="ev-grid" style="margin-top:2.4rem">
+      <article class="ev">
+        <span class="floor">1F</span>
+        <h3>屋久島好きが集まるカフェ会</h3>
+        <dl>
+          <dt>日時</dt><dd>毎月 第3金曜日 11:00〜12:30</dd>
+          <dt>定員</dt><dd>6名</dd>
+          <dt>参加費</dt><dd>詳しくはLINEへ</dd>
+        </dl>
+        <div class="next" data-nth="3" data-dow="5" data-from="">
+          <p class="lbl">次回の開催</p>
+          <p class="date">—</p>
+          <p class="after"></p>
         </div>
+        <a class="btn btn-line" href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">LINEで申し込む</a>
       </article>
-      <article class="event-card">
-        <p class="sample-bar">表示イメージ｜内容は仮です</p>
-        <div class="ph"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=70" alt="ビジネス交流会の様子（イメージ）" loading="lazy"></div>
-        <div class="event-body">
-          <h3>ビジネス交流会</h3>
-          <dl class="event-meta">
-            <dt>日時</dt><dd>11月○日（○）19:30〜</dd>
-            <dt>参加費</dt><dd>○,○○○円（1ドリンク付）</dd>
-            <dt>定員</dt><dd>○名</dd>
-          </dl>
+      <article class="ev">
+        <span class="floor">2F</span>
+        <h3>CCC福岡南ビジネス交流会</h3>
+        <dl>
+          <dt>日時</dt><dd>毎月 第4月曜日 12:00〜15:00</dd>
+          <dt>定員</dt><dd>12名</dd>
+          <dt>参加費</dt><dd>詳しくはLINEへ</dd>
+        </dl>
+        <div class="next" data-nth="4" data-dow="1" data-from="2027-01-01">
+          <p class="lbl">次回の開催</p>
+          <p class="date">—</p>
+          <p class="after"></p>
         </div>
-      </article>
-      <article class="event-card">
-        <p class="sample-bar">表示イメージ｜内容は仮です</p>
-        <div class="ph"><img src="https://images.unsplash.com/photo-1594732832278-abd644401426?auto=format&fit=crop&w=900&q=70" alt="壁に展示された作品（イメージ）" loading="lazy"></div>
-        <div class="event-body">
-          <h3>アート展示｜作品と、つくった人に会える夜</h3>
-          <dl class="event-meta">
-            <dt>期間</dt><dd>11月○日〜○日</dd>
-            <dt>参加費</dt><dd>入場無料（ご注文のみ）</dd>
-            <dt>会場</dt><dd>店内カウンター・壁面</dd>
-          </dl>
-        </div>
+        <a class="btn btn-line" href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">LINEで問い合わせ</a>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- ⑧ 看護師という仕事の可能性 -->
-<section class="nurse" id="nurse">
-  <div class="wrap nurse-grid">
-    <div>
-      <p class="eyebrow">NURSE</p>
-      <h2>看護師だから、<br>できることがある。</h2>
-      <p>「看護師だからできない」<br>そう思われることが、まだ多いかもしれません。</p>
-      <p>でも、人の話を聴く。安心をつくる。人をつなぐ。<br>それは、看護の現場で身についた力です。</p>
-      <ul aria-label="看護師の新しい選択肢">
-        <li>新しい事業に挑戦できる</li>
-        <li>自分で仕事をつくれる</li>
-        <li>働き方や収入の選択肢を広げられる</li>
-        <li>人生の選択肢を広げられる</li>
+    <div class="news">
+      <h3>お知らせ <span class="tag tag-wait">表示イメージ｜内容は仮です</span></h3>
+      <!-- 公開時は管理画面で登録した「お知らせ・臨時イベント」がここに並ぶ -->
+      <ul>
+        <li><time>2026.11.01</time><p>軽食メニューがスタートしました<small>お酒に合うおつまみをご用意しています。</small></p></li>
+        <li><time>2026.10.18</time><p>サッカー日本代表戦 観戦ナイト<small>1階の大画面で一緒に応援しましょう。</small></p></li>
+        <li><time>2026.10.10</time><p>2階でギンガさんの個展を開催<small>期間中は作品をゆっくりご覧いただけます。</small></p></li>
+        <li><time>2026.10.03</time><p>BAR NIMO オープンしました！<small>21:00からお待ちしています。</small></p></li>
       </ul>
-      <p>わたしはこれからも現場に立ちます。<br>注射もするし、利用者さんとも向き合う。<br>看護師のまま、新しいことに挑戦します。</p>
-      <p>いつか、子どもたちが「なりたい」と思う仕事に。<br>その姿を、この店から見せていきたいです。</p>
     </div>
-    <div class="ph"><img src="https://images.unsplash.com/photo-1653919222330-b6face80755d?auto=format&fit=crop&w=1200&q=70" alt="バーのカウンター（イメージ）" loading="lazy"><span>イメージ写真：看護の現場／カウンターに立つ姿に差し替え予定</span></div>
   </div>
 </section>
 
-<!-- ⑨ 初めての方へ -->
-<section class="faq" id="first">
-  <div class="narrow">
-    <p class="eyebrow">FAQ</p>
-    <h2>初めての方へ</h2>
-    <details><summary>一人でも大丈夫ですか？</summary><p>もちろんです。一人で来ても過ごしやすい店にしたいと考えています。</p></details>
-    <details><summary>初めてでも大丈夫ですか？</summary><p>大丈夫です。常連さんだけの店にはしません。</p></details>
-    <details><summary>医療関係者じゃなくても大丈夫ですか？</summary><p>大丈夫です。お客さまの職業は問いません。普通のバーとして使ってください。</p></details>
-    <details><summary>お酒を飲めなくても大丈夫ですか？</summary><p>大丈夫です。お酒を飲まない方にも楽しんでいただけるノンアルコールドリンクをご用意する予定です。</p></details>
-    <details><summary>予約は必要ですか？</summary><p>予約なしでもご来店いただけます。グループでのご利用は、事前にお問い合わせいただけると助かります。</p></details>
-    <details><summary>営業時間は？</summary><p>18:00〜1:00です。定休日は不定休です。</p></details>
-    <details><summary>場所はどこですか？</summary><p>〒811-1302 福岡県福岡市南区井尻1丁目36-8です。西鉄・井尻駅から歩いてお越しいただけます。</p></details>
-    <details><summary>駐車場はありますか？</summary><p>お車でお越しの際は、周辺のコインパーキングをご利用ください。</p></details>
+<!-- 2階スペース -->
+<section class="space" id="space">
+  <div class="wrap space-grid">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1594732832278-abd644401426?auto=format&fit=crop&w=1200&q=70" alt="作品が展示された空間（イメージ）" loading="lazy"><span class="cap">イメージ写真</span></div>
+    <div>
+      <p class="eyebrow">2F SPACE</p>
+      <h2>2階を、<br>使ってみませんか。</h2>
+      <p>NIMOの2階は、個展やサロンなどに使えるスペースです。<br>お気軽にご相談ください。</p>
+      <ul aria-label="使い方の例">
+        <li>個展・作品展示</li>
+        <li>間借りサロン</li>
+        <li>交流会・勉強会</li>
+      </ul>
+      <a class="btn btn-line" href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5 1.1-.5 5.9-3.5 8-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>
+        間借りの相談をする
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ⑩ 店舗情報 -->
+<!-- アート -->
+<section class="art" id="art">
+  <div class="wrap art-grid">
+    <div>
+      <p class="eyebrow">ART</p>
+      <h2>飲みながら、<br>アートに出会う。</h2>
+      <p>店内には、ギンガさんの作品を展示しています。<br>見るだけでも、もちろん大丈夫。<br>気に入った作品は、その場でお買い求めいただけます。</p>
+      <p class="artist">ギンガ<small>展示・販売</small></p>
+      <a class="ig" href="https://www.instagram.com/ginga.kameya" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        ギンガさんの作品をInstagramで見る
+      </a>
+    </div>
+    <div class="works" aria-label="作品写真（準備中）">
+      <div class="ph">作品写真</div>
+      <div class="ph">作品写真</div>
+      <div class="ph">作品写真</div>
+    </div>
+  </div>
+</section>
+
+<!-- 店舗情報 -->
 <section class="info" id="info">
   <div class="wrap">
-    <p class="eyebrow">INFORMATION</p>
+    <p class="eyebrow">ACCESS</p>
     <h2>店舗情報</h2>
     <div class="info-grid">
       <dl>
-        <dt>店名</dt><dd>笑顔BASE</dd>
+        <dt>店名</dt><dd>BAR NIMO（バー ニモ）</dd>
+        <dt>オープン</dt><dd>2026年10月3日（土）</dd>
         <dt>住所</dt><dd>〒811-1302<br>福岡県福岡市南区井尻1丁目36-8</dd>
-        <dt>営業時間</dt><dd>18:00〜1:00</dd>
-        <dt>定休日</dt><dd>不定休</dd>
-        <dt>席</dt><dd>カウンターを中心とした、小さなバー</dd>
-        <dt>予約</dt><dd>予約なしでもご利用いただけます<small>グループでのご利用は事前にお問い合わせください</small></dd>
-        <dt>支払い</dt><dd>現金／クレジットカード／QRコード決済</dd>
-        <dt>駐車場</dt><dd>周辺のコインパーキングをご利用ください</dd>
-        <dt>電話番号</dt><dd class="tbd">準備中</dd>
-        <dt>Instagram</dt><dd class="tbd">準備中</dd>
+        <dt>営業時間</dt><dd>21:00〜</dd>
+        <dt>定休日</dt><dd>日曜日</dd>
+        <dt>料金</dt><dd>チャージ ¥500／表示価格は税抜き<br>飲み放題 1時間 ¥2,000（チャージ込み）</dd>
+        <dt>お問い合わせ</dt><dd><a href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">公式LINE</a></dd>
+        <dt>運営</dt><dd>合同会社えがお島（しまnimo訪問看護）</dd>
       </dl>
       <div class="map">
-        <iframe src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%97%E5%8C%BA%E4%BA%95%E5%B0%BB1%E4%B8%81%E7%9B%AE36-8&hl=ja&z=17&output=embed" title="笑顔BASE 所在地の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <iframe src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%97%E5%8C%BA%E4%BA%95%E5%B0%BB1%E4%B8%81%E7%9B%AE36-8&hl=ja&z=17&output=embed" title="BAR NIMO 所在地の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ⑪ 最後のメッセージ -->
+<!-- 最後のメッセージ -->
 <section class="closing">
-  <div class="narrow">
-    <svg class="smile" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 17c1.9 3.8 4.9 5.8 8 5.8s6.1-2 8-5.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <p class="big">難しいことは考えず、<br>まずは一杯飲みに来てください。</p>
-    <p>笑顔BASEで、お待ちしています。</p>
-    <p class="addr">
-      <strong>笑顔BASE</strong>
-      福岡市南区井尻1丁目36-8<br>
-      18:00〜1:00
-    </p>
+  <div class="wrap">
+    <p class="big">今夜は、<em>NIMO</em>で一杯。</p>
+    <p>21:00から、お待ちしています。</p>
+    <div class="hero-cta">
+      <a class="btn btn-sun" href="#info">アクセスを見る</a>
+      <a class="btn btn-line" href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">LINEで問い合わせ</a>
+    </div>
   </div>
 </section>
 
 </main>
 
-<!-- 打ち合わせメモ（デモ用。公開時はこの要素とスクリプト内の該当箇所を削除してください） -->
-<button type="button" class="memo-btn" id="memo-open">打ち合わせメモ</button>
-<div class="memo-panel" id="memo-panel" role="dialog" aria-modal="true" aria-labelledby="memo-title">
-  <div class="memo-inner">
-    <h3 id="memo-title">打ち合わせメモ</h3>
-    <p class="memo-lead">このページは第2案です。以下はオーナー確認が必要な項目です。</p>
-
-    <h4>メインコピー</h4>
-    <ul>
-      <li>「看護の外にも、安心と笑顔が生まれる場所を。」でよいか</li>
-      <li>看護を最初から前面に出すか</li>
-    </ul>
-
-    <h4>来店ターゲット</h4>
-    <ul>
-      <li>一般客／看護師・医療関係者／経営者／障がいのある方や家族<br>のうち、誰を最優先にするか</li>
-    </ul>
-
-    <h4>STORY（バーをつくった理由）</h4>
-    <ul>
-      <li>「なぜバーをやるのか」の説明は本人の思いに近いか</li>
-      <li>もっと強く伝えたい部分はあるか</li>
-    </ul>
-
-    <h4>ART / CHALLENGE</h4>
-    <ul>
-      <li>展示・販売はどこまで行いたいか</li>
-      <li>社会性をどこまで前面に出すか</li>
-    </ul>
-
-    <h4>看護師という仕事の可能性</h4>
-    <ul>
-      <li><span class="memo-tag">要確認</span>「しっかり稼げる」という直接的な表現を残すか、柔らかくするかオーナー確認<br>（現在は「働き方や収入の選択肢を広げられる」に変更済み）</li>
-    </ul>
-
-    <h4>イベント</h4>
-    <ul>
-      <li><span class="memo-tag">仮設定・要確認</span>イベント表示の完成イメージ用。実際の内容ではありません。</li>
-      <li>実際にやりたいイベントは何か／頻度／有料・無料／誰向けか</li>
-    </ul>
-
-    <h4>店舗情報の仮設定</h4>
-    <ul>
-      <li><span class="memo-tag">仮設定・要確認</span>定休日（不定休）／予約方法／ノンアルコールの内容／決済方法／席数／駐車場</li>
-    </ul>
-
-    <h4>写真</h4>
-    <ul>
-      <li>すべてイメージ写真です。実際の店舗・本人の写真に差し替えが必要です。</li>
-    </ul>
-
-    <button type="button" class="memo-close" id="memo-close">閉じる</button>
-  </div>
-</div>
-
-<!-- デモ用のテーマ切替。公開時はこの要素とスクリプト内の該当箇所を削除してください -->
-<div class="theme-switch" role="group" aria-label="配色の切り替え（デモ用）">
-  <span class="lbl">色を変える</span>
-  <button type="button" class="sw-warm" data-theme-set="warm" aria-label="現在の色（木と灯り）" title="現在の色：木と灯り"></button>
-  <button type="button" class="sw-bar" data-theme-set="bar" aria-label="夜のバー" title="夜のバー"></button>
-  <button type="button" class="sw-community" data-theme-set="community" aria-label="コミュニティ" title="コミュニティ"></button>
-  <span class="sep" aria-hidden="true"></span>
-  <button type="button" class="fnt fnt-mincho" data-font-set="mincho" aria-label="明朝体" title="明朝体">あ</button>
-  <button type="button" class="fnt fnt-gothic" data-font-set="gothic" aria-label="ゴシック体" title="ゴシック体">あ</button>
-  <button type="button" class="fnt fnt-maru" data-font-set="maru" aria-label="丸ゴシック体" title="丸ゴシック体">あ</button>
-</div>
-
 <a href="#top" class="to-top" aria-label="ページの先頭へ戻る">
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </a>
 
 <footer>
   <div class="wrap">
-    <span>© 笑顔BASE</span>
-    <span>福岡市南区井尻1丁目36-8｜18:00〜1:00</span>
+    <span class="logo"><small>BAR</small>NIMO</span>
+    <span>福岡市南区井尻1丁目36-8｜21:00〜｜日曜定休</span>
+    <span>© BAR NIMO / 合同会社えがお島</span>
   </div>
 </footer>
 
+<!-- イメージ確認用メモ（公開時はこの要素とスクリプト内の該当箇所を削除） -->
+<!-- 配色切替（イメージ確認用。公開時はこの要素とスクリプト内の該当箇所を削除） -->
+<div class="theme-switch" role="group" aria-label="配色の切り替え（確認用）">
+  <span class="lbl">色</span>
+  <button type="button" class="sw-now" data-theme-set="now" aria-label="現在の色" title="現在の色"></button>
+  <button type="button" class="sw-sea" data-theme-set="sea" aria-label="海寄り" title="海寄り"></button>
+  <button type="button" class="sw-natural" data-theme-set="natural" aria-label="ナチュラル" title="ナチュラル"></button>
+</div>
+
+<button type="button" class="memo-btn" id="memo-open">確認メモ</button>
+<div class="memo-panel" id="memo-panel" role="dialog" aria-modal="true" aria-labelledby="memo-title">
+  <div class="memo-inner">
+    <h3 id="memo-title">確認メモ（イメージ作り段階）</h3>
+    <h4>仮・準備中のもの</h4>
+    <ul>
+      <li>写真はすべてイメージ写真です（店内・作品の写真に差し替え予定）</li>
+      <li>「お知らせ」欄の3件は表示イメージで、実際の予定ではありません</li>
+      <li>島しばりの酒（企画中）、軽食の内容（11月〜）</li>
+    </ul>
+    <h4>公開までに決めること</h4>
+    <ul>
+      <li>ドメイン（竹之内さんに確認中）</li>
+    </ul>
+    <h4>管理画面で更新する予定の部分</h4>
+    <ul>
+      <li>定期イベント（カフェ会・交流会）：次回の日付は自動で表示。休む月を指定できるようにする</li>
+      <li>お知らせ・臨時イベント：竹之内さんがスマホから追加</li>
+    </ul>
+    <button type="button" class="memo-close" id="memo-close">閉じる</button>
+  </div>
+</div>
+
 <script>
-// 一定量スクロールしたら「上に戻る」を表示
 (function(){
-  var btn = document.querySelector('.to-top');
-  var toggle = document.getElementById('menu-toggle');
-  var show = false;
+  // 毎月「第n ○曜日」の次回開催日を計算して表示する
+  var WD = ['日','月','火','水','木','金','土'];
+  function nthWeekday(y, m, nth, dow){
+    var first = new Date(y, m, 1).getDay();
+    return new Date(y, m, 1 + (dow - first + 7) % 7 + (nth - 1) * 7);
+  }
+  function fmt(d){ return (d.getMonth()+1) + '月' + d.getDate() + '日（' + WD[d.getDay()] + '）'; }
+  function upcoming(nth, dow, from, count){
+    var today = new Date(); today.setHours(0,0,0,0);
+    var start = from && from > today ? from : today;
+    var y = start.getFullYear(), m = start.getMonth(), out = [];
+    while (out.length < count){
+      var d = nthWeekday(y, m, nth, dow);
+      if (d >= start) out.push(d);
+      if (++m > 11){ m = 0; y++; }
+    }
+    return out;
+  }
+  document.querySelectorAll('.next').forEach(function(el){
+    var from = el.dataset.from ? new Date(el.dataset.from + 'T00:00:00') : null;
+    var ds = upcoming(+el.dataset.nth, +el.dataset.dow, from, 3);
+    el.querySelector('.date').textContent = (ds[0].getFullYear() !== new Date().getFullYear() ? ds[0].getFullYear() + '年' : '') + fmt(ds[0]);
+    el.querySelector('.after').textContent = 'その後：' + fmt(ds[1]) + '、' + fmt(ds[2]);
+  });
+
+  // 一定量スクロールしたら「上に戻る」を表示
+  var topBtn = document.querySelector('.to-top'), shown = false;
   function onScroll(){
     var want = window.scrollY > window.innerHeight * 0.8;
-    if (want !== show) { show = want; btn.classList.toggle('show', want); }
+    if (want !== shown){ shown = want; topBtn.classList.toggle('show', want); }
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
   // メニュー内のリンクをタップしたら閉じる
+  var toggle = document.getElementById('menu-toggle');
   document.querySelectorAll('nav a').forEach(function(a){
     a.addEventListener('click', function(){ toggle.checked = false; });
   });
 
-  // --- デモ用：配色の切り替え（公開時はここから下を削除） ---
+  // 確認メモの開閉（公開時は削除）
+  var panel = document.getElementById('memo-panel');
+  function memo(open){ open ? panel.setAttribute('open','') : panel.removeAttribute('open'); }
+  document.getElementById('memo-open').addEventListener('click', function(){ memo(true); });
+  document.getElementById('memo-close').addEventListener('click', function(){ memo(false); });
+  panel.addEventListener('click', function(e){ if (e.target === panel) memo(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') memo(false); });
+
+  // 配色の切り替え（公開時は削除）
   var swBtns = document.querySelectorAll('[data-theme-set]');
-  function apply(name){
-    if (name === 'warm') document.documentElement.removeAttribute('data-theme');
+  function applyTheme(name){
+    if (name === 'now') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', name);
     swBtns.forEach(function(b){
       b.setAttribute('aria-pressed', b.dataset.themeSet === name ? 'true' : 'false');
     });
-    try { localStorage.setItem('egao-theme', name); } catch(e){}
+    try { localStorage.setItem('nimo-theme', name); } catch(e){}
   }
   swBtns.forEach(function(b){
-    b.addEventListener('click', function(){ apply(b.dataset.themeSet); });
+    b.addEventListener('click', function(){ applyTheme(b.dataset.themeSet); });
   });
-  var saved = 'warm';
-  try { saved = localStorage.getItem('egao-theme') || 'warm'; } catch(e){}
-  apply(saved);
-
-  // 打ち合わせメモの開閉（初期状態は非表示）
-  var memoPanel = document.getElementById('memo-panel');
-  function memoSet(open){
-    if (open) memoPanel.setAttribute('open',''); else memoPanel.removeAttribute('open');
-  }
-  document.getElementById('memo-open').addEventListener('click', function(){ memoSet(true); });
-  document.getElementById('memo-close').addEventListener('click', function(){ memoSet(false); });
-  memoPanel.addEventListener('click', function(e){ if (e.target === memoPanel) memoSet(false); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') memoSet(false); });
-
-  // 書体の切り替え
-  var fnBtns = document.querySelectorAll('[data-font-set]');
-  function applyFont(name){
-    if (name === 'mincho') document.documentElement.removeAttribute('data-font');
-    else document.documentElement.setAttribute('data-font', name);
-    fnBtns.forEach(function(b){
-      b.setAttribute('aria-pressed', b.dataset.fontSet === name ? 'true' : 'false');
-    });
-    try { localStorage.setItem('egao-font', name); } catch(e){}
-  }
-  fnBtns.forEach(function(b){
-    b.addEventListener('click', function(){ applyFont(b.dataset.fontSet); });
-  });
-  var savedFont = 'mincho';
-  try { savedFont = localStorage.getItem('egao-font') || 'mincho'; } catch(e){}
-  applyFont(savedFont);
+  var savedTheme = 'now';
+  try { savedTheme = localStorage.getItem('nimo-theme') || 'now'; } catch(e){}
+  applyTheme(savedTheme);
 })();
 </script>
 </body>
