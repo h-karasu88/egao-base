@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BAR NIMO｜福岡・井尻のカジュアルBAR</title>
-<meta name="description" content="BAR NIMO（バー ニモ）は福岡市南区井尻のカジュアルBAR。21:00から営業、日曜定休。飲み放題1時間2,000円（チャージ込み）。サッカー観戦、音楽、島のお酒、アート展示も。">
+<meta name="description" content="BAR NIMO（バー ニモ）は福岡市南区井尻のカジュアルBAR。21:00から営業、日曜定休。飲み放題1時間2,200円（チャージ込み）。サッカー観戦、音楽、島のお酒、アート展示も。">
 <!-- イメージ作り段階。写真はUnsplash（商用利用可）のイメージ写真を外部読込。公開前に実写真へ差し替え。 -->
 <!-- イベント欄は、公開時に自作の管理画面（PHP + SQLite）から出力する想定。今は仮データ。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -161,7 +161,7 @@ a.feat:hover{border-color:var(--sun);transform:translateY(-2px)}
 .feat .more{margin-top:auto;padding-top:.6rem;font-size:.82rem;font-weight:700;color:var(--sun)}
 
 /* menu */
-.menu{background:var(--bg-2)}
+.menu{background:var(--bg)}
 .menu-head{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
 .menu-head li{list-style:none;font-weight:700;font-size:.9rem;padding:.4em 1.1em;border-radius:6px;background:var(--card);border:1px solid var(--line)}
 .nomi{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,48px);align-items:center;padding:clamp(24px,4vw,36px);border-radius:14px;margin-bottom:2rem;
@@ -198,7 +198,7 @@ a.feat:hover{border-color:var(--sun);transform:translateY(-2px)}
 .next .date{font-size:1.35rem;font-weight:900;line-height:1.5}
 .next .after{font-size:.8rem;color:var(--ink-soft)}
 .ev .btn{margin-top:auto;align-self:flex-start;padding:.7em 1.4em;font-size:.88rem}
-.news{margin-top:clamp(40px,6vw,64px)}
+.news-sec h2{display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
 .news h3{font-size:1.15rem;font-weight:900;margin-bottom:1rem;display:flex;align-items:center;gap:.6em;flex-wrap:wrap}
 .news ul{list-style:none;border-top:1px solid var(--line)}
 .news li{display:grid;grid-template-columns:7.5em 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
@@ -208,7 +208,8 @@ a.feat:hover{border-color:var(--sun);transform:translateY(-2px)}
 @media (max-width:520px){.news li{grid-template-columns:1fr;gap:.2rem}}
 
 /* space（2階） */
-.space{background:var(--bg-2)}
+.events{background:var(--bg-2)}
+.space{background:var(--bg)}
 .space-grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(32px,6vw,72px);align-items:center}
 .space .ph{aspect-ratio:4/3}
 .space ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 2rem}
@@ -294,11 +295,12 @@ section[id]{scroll-margin-top:62px}
     </label>
     <nav aria-label="ページ内メニュー">
       <ul>
+        <li><a href="#news">お知らせ</a></li>
         <li><a href="#about">BAR NIMOとは</a></li>
         <li><a href="#menu">メニュー</a></li>
+        <li><a href="#art">アート</a></li>
         <li><a href="#event">イベント</a></li>
         <li><a href="#space">2階スペース</a></li>
-        <li><a href="#art">アート</a></li>
         <li><a href="#info">アクセス</a></li>
         <li class="nav-line"><a href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">LINEで問い合わせ</a></li>
       </ul>
@@ -321,12 +323,29 @@ section[id]{scroll-margin-top:62px}
         <li class="open">SINCE 2026</li>
         <li>21:00〜</li>
         <li>日曜定休</li>
-        <li>飲み放題 1時間 2,000円</li>
+        <li>飲み放題 1時間 2,200円</li>
       </ul>
       <div class="hero-cta">
         <a class="btn btn-sun" href="#menu">メニューを見る</a>
         <a class="btn btn-ghost" href="#info">アクセス</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- お知らせ（公開時は管理画面から出力） -->
+<section class="news-sec" id="news">
+  <div class="wrap">
+    <p class="eyebrow">NEWS</p>
+    <h2>お知らせ <span class="tag tag-wait">表示イメージ｜内容は仮です</span></h2>
+    <div class="news">
+    <!-- 公開時は管理画面で登録した「お知らせ・臨時イベント」がここに並ぶ -->
+    <ul>
+      <li><time>2026.11.01</time><p>軽食メニューがスタートしました<small>お酒に合うおつまみをご用意しています。</small></p></li>
+      <li><time>2026.10.18</time><p>サッカー日本代表戦 観戦ナイト<small>1階の大画面で一緒に応援しましょう。</small></p></li>
+      <li><time>2026.10.10</time><p>2階でギンガさんの個展を開催<small>期間中は作品をゆっくりご覧いただけます。</small></p></li>
+      <li><time>2026.10.03</time><p>BAR NIMO オープンしました！<small>21:00からお待ちしています。</small></p></li>
+    </ul>
     </div>
   </div>
 </section>
@@ -369,7 +388,7 @@ section[id]{scroll-margin-top:62px}
       </a></li>
       <li><a class="feat" href="#menu">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10l-1.2 16.2a2 2 0 0 1-2 1.8h-3.6a2 2 0 0 1-2-1.8z"/><path d="M7.4 8h9.2"/></svg></span>
-        <h3>飲み放題 1時間2,000円</h3>
+        <h3>飲み放題 1時間2,200円</h3>
         <p>チャージ込みのわかりやすい料金です。</p>
         <p class="more">詳しく見る →</p>
       </a></li>
@@ -383,12 +402,12 @@ section[id]{scroll-margin-top:62px}
     <p class="eyebrow">DRINK MENU</p>
     <h2>メニュー</h2>
     <ul class="menu-head">
-      <li>チャージ ¥500</li>
-      <li>表示価格は税抜き（別途10%）</li>
+      <li>チャージ ¥550</li>
+      <li>表示価格はすべて税込み</li>
     </ul>
 
     <div class="nomi">
-      <p class="price"><small>飲み放題</small>¥2,000<em>1時間／チャージ込み</em></p>
+      <p class="price"><small>飲み放題</small>¥2,200<em>1時間／チャージ込み</em></p>
       <dl>
         <dt class="ok">対象</dt><dd>角ウイスキー（ハイボール・ロック）、一部の焼酎、カクテル など</dd>
         <dt class="ng">対象外</dt><dd>ビール、シャンパン、島しばりの焼酎</dd>
@@ -399,45 +418,64 @@ section[id]{scroll-margin-top:62px}
       <div class="mcat">
         <h3>カクテル <span class="tag tag-sea">飲み放題OK</span></h3>
         <p class="desc">カシス・パッソア・ディタ など</p>
-        <ul><li>各種<b>¥700</b></li></ul>
+        <ul><li>各種<b>¥770</b></li></ul>
       </div>
       <div class="mcat">
         <h3>ウイスキー（角） <span class="tag tag-sea">飲み放題OK</span></h3>
         <p class="desc">定番の角を、ハイボールかロックで</p>
-        <ul><li>角ハイボール<b>¥700</b></li><li>角ロック<b>¥700</b></li></ul>
+        <ul><li>角ハイボール<b>¥770</b></li><li>角ロック<b>¥770</b></li></ul>
       </div>
       <div class="mcat">
         <h3>焼酎 <span class="tag tag-sea">一部 飲み放題OK</span></h3>
         <p class="desc">麦・芋・しそ・ジャスミン・梅酒／水割り・茶割り・ロック</p>
-        <ul><li>グラス<b>¥650</b></li><li>ピッチャー<b>¥2,800</b></li></ul>
+        <ul><li>グラス<b>¥715</b></li><li>ピッチャー<b>¥3,080</b></li></ul>
       </div>
       <div class="mcat">
         <h3>ウイスキー各種</h3>
         <p class="desc">角以外のウイスキー／ストレート・ロック</p>
-        <ul><li>シングル<b>¥650</b></li><li>ダブル<b>¥1,000</b></li><li>ハイボール<b>¥1,000</b></li></ul>
+        <ul><li>シングル<b>¥715</b></li><li>ダブル<b>¥1,100</b></li><li>ハイボール<b>¥1,100</b></li></ul>
       </div>
       <div class="mcat">
         <h3>ビール・サワーほか</h3>
-        <ul><li>ビール（缶）<b>¥700</b></li><li>缶チューハイ<b>¥700</b></li><li>レモンサワー<b>¥700</b></li><li>グラスワイン<b>¥700</b></li></ul>
+        <ul><li>ビール（缶）<b>¥770</b></li><li>缶チューハイ<b>¥770</b></li><li>レモンサワー<b>¥770</b></li><li>グラスワイン<b>¥770</b></li></ul>
       </div>
       <div class="mcat">
         <h3>ショット・ソフトドリンク</h3>
-        <ul><li>ショット（テキーラなど）<b>¥800</b></li><li>ソフトドリンク<b>¥500</b></li></ul>
+        <ul><li>ショット（テキーラなど）<b>¥880</b></li><li>ソフトドリンク<b>¥550</b></li></ul>
       </div>
       <div class="mcat">
         <h3>シャンパン</h3>
-        <ul><li>オリジナルシャンパン<b>¥12,500</b></li></ul>
+        <ul><li>オリジナルシャンパン<b>¥13,750</b></li></ul>
       </div>
       <div class="mcat soon">
         <h3>島しばりの酒</h3>
         <p>「島」にちなんだお酒を、少しずつそろえていきます。</p>
       </div>
     </div>
-    <p class="note">※ 価格はすべて税抜きです。メニューは変わることがあります。</p>
+    <p class="note">※ 価格はすべて税込みです。メニューは変わることがあります。</p>
   </div>
 </section>
 
-<!-- イベント（公開時は管理画面から出力） -->
+<!-- アート -->
+<section class="art" id="art">
+  <div class="wrap art-grid">
+    <div>
+      <p class="eyebrow">ART</p>
+      <h2>飲みながら、<br>アートに出会う。</h2>
+      <p>店内には、ギンガさんの作品を展示しています。<br>見るだけでも、もちろん大丈夫。<br>気に入った作品は、その場でお買い求めいただけます。</p>
+      <p class="artist">ギンガ<small>展示・販売</small></p>
+      <a class="ig" href="https://www.instagram.com/ginga.kameya" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        ギンガさんの作品をInstagramで見る
+      </a>
+    </div>
+    <div class="works" aria-label="作品写真（準備中）">
+      <div class="ph">作品写真</div>
+      <div class="ph">作品写真</div>
+      <div class="ph">作品写真</div>
+    </div>
+  </div>
+</section>
 <section class="events" id="event">
   <div class="wrap">
     <p class="eyebrow">EVENT</p>
@@ -477,16 +515,6 @@ section[id]{scroll-margin-top:62px}
       </article>
     </div>
 
-    <div class="news">
-      <h3>お知らせ <span class="tag tag-wait">表示イメージ｜内容は仮です</span></h3>
-      <!-- 公開時は管理画面で登録した「お知らせ・臨時イベント」がここに並ぶ -->
-      <ul>
-        <li><time>2026.11.01</time><p>軽食メニューがスタートしました<small>お酒に合うおつまみをご用意しています。</small></p></li>
-        <li><time>2026.10.18</time><p>サッカー日本代表戦 観戦ナイト<small>1階の大画面で一緒に応援しましょう。</small></p></li>
-        <li><time>2026.10.10</time><p>2階でギンガさんの個展を開催<small>期間中は作品をゆっくりご覧いただけます。</small></p></li>
-        <li><time>2026.10.03</time><p>BAR NIMO オープンしました！<small>21:00からお待ちしています。</small></p></li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -511,26 +539,6 @@ section[id]{scroll-margin-top:62px}
   </div>
 </section>
 
-<!-- アート -->
-<section class="art" id="art">
-  <div class="wrap art-grid">
-    <div>
-      <p class="eyebrow">ART</p>
-      <h2>飲みながら、<br>アートに出会う。</h2>
-      <p>店内には、ギンガさんの作品を展示しています。<br>見るだけでも、もちろん大丈夫。<br>気に入った作品は、その場でお買い求めいただけます。</p>
-      <p class="artist">ギンガ<small>展示・販売</small></p>
-      <a class="ig" href="https://www.instagram.com/ginga.kameya" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-        ギンガさんの作品をInstagramで見る
-      </a>
-    </div>
-    <div class="works" aria-label="作品写真（準備中）">
-      <div class="ph">作品写真</div>
-      <div class="ph">作品写真</div>
-      <div class="ph">作品写真</div>
-    </div>
-  </div>
-</section>
 
 <!-- 店舗情報 -->
 <section class="info" id="info">
@@ -542,9 +550,12 @@ section[id]{scroll-margin-top:62px}
         <dt>店名</dt><dd>BAR NIMO（バー ニモ）</dd>
         <dt>オープン</dt><dd>2026年10月3日（土）</dd>
         <dt>住所</dt><dd>〒811-1302<br>福岡県福岡市南区井尻1丁目36-8</dd>
+        <dt>アクセス</dt><dd>西鉄天神大牟田線 井尻駅から徒歩3分</dd>
+        <dt>駐車場</dt><dd>ありません</dd>
+        <dt>お支払い</dt><dd>現金・クレジットカード</dd>
         <dt>営業時間</dt><dd>21:00〜</dd>
         <dt>定休日</dt><dd>日曜日</dd>
-        <dt>料金</dt><dd>チャージ ¥500／表示価格は税抜き<br>飲み放題 1時間 ¥2,000（チャージ込み）</dd>
+        <dt>料金</dt><dd>チャージ ¥550／表示価格はすべて税込み<br>飲み放題 1時間 ¥2,200（チャージ込み）</dd>
         <dt>お問い合わせ</dt><dd><a href="https://line.me/R/ti/p/@807djapq" target="_blank" rel="noopener">公式LINE</a></dd>
         <dt>運営</dt><dd>合同会社えがお島（しまnimo訪問看護）</dd>
       </dl>
