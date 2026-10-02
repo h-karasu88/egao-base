@@ -12,47 +12,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#12171D; --bg-2:#19212A; --card:#1F2933; --line:#2E3A46;
-  --ink:#F3EFE8; --ink-soft:#A9B4BE;
-  --sun:#FF8A3D; --sun-soft:rgba(255,138,61,.14);
-  --sea:#3FC1B0; --sea-soft:rgba(63,193,176,.14);
-  --line-green:#06C755;
-  --on-sun:#1B0F05; --on-sea:#06201C;
-  --sun-fill:var(--sun); --sea-fill:var(--sea);
-  --header-bg:rgba(18,23,29,.86);
-  --hero-veil:linear-gradient(to top,rgba(12,16,20,.96) 0%,rgba(12,16,20,.7) 45%,rgba(12,16,20,.35) 100%);
-  --hero-ink:#F7F3EC; --hero-chip-bg:rgba(16,20,26,.55); --hero-chip-line:rgba(247,243,236,.34);
-  --latin:"Archivo Black","Zen Kaku Gothic New",sans-serif;
-  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
-}
-/* ② 海：明るい浅瀬の水色。昼の島のイメージ */
-:root[data-theme="sea"]{
+  /* 海：明るい浅瀬の水色。島と昼を感じる地色 */
   --bg:#EFF8F7; --bg-2:#DCEFEC; --card:#FFFFFF; --line:#BBDCD6;
   --ink:#14302E; --ink-soft:#5A7A77;
   --sun:#C9500E; --sun-soft:rgba(201,80,14,.12);
   --sea:#0A7C6D; --sea-soft:rgba(10,124,109,.12);
-  --sun-fill:#F2762E; --sea-fill:#0E9C8A;
+  --line-green:#06C755;
   --on-sun:#2B1200; --on-sea:#FFFFFF;
+  /* 文字用は濃い色、塗り用は明るい色を使い分ける */
+  --sun-fill:#F2762E; --sea-fill:#0E9C8A;
   --header-bg:rgba(239,248,247,.9);
   /* 写真の上の文字は白のままなので、ベールは暗いまま残す */
   --hero-veil:linear-gradient(to top,rgba(8,42,40,.9) 0%,rgba(8,42,40,.62) 45%,rgba(8,42,40,.3) 100%);
-}
-/* ③ ナチュラル：生成り・砂色。木と紙の質感 */
-:root[data-theme="natural"]{
-  --bg:#F7F3EB; --bg-2:#EDE6D9; --card:#FFFFFF; --line:#DCD1BE;
-  --ink:#2B2520; --ink-soft:#6E6356;
-  --sun:#A8521B; --sun-soft:rgba(168,82,27,.12);
-  --sea:#3D6E5B; --sea-soft:rgba(61,110,91,.12);
-  --sun-fill:#C96A28; --sea-fill:#4F8A72;
-  --on-sun:#2B1200; --on-sea:#FFFFFF;
-  --header-bg:rgba(247,243,235,.9);
-  --hero-veil:linear-gradient(to top,rgba(38,30,22,.9) 0%,rgba(38,30,22,.6) 45%,rgba(38,30,22,.28) 100%);
+  --hero-ink:#F7F3EC; --hero-chip-bg:rgba(16,20,26,.55); --hero-chip-line:rgba(247,243,236,.34);
+  --latin:"Archivo Black","Zen Kaku Gothic New",sans-serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html,body{overflow-x:clip}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body,header,section,footer,.card,.ev,.news li,.memo-inner,.theme-switch,.to-top{transition:background-color .45s ease,color .45s ease,border-color .45s ease}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.85;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -317,7 +296,7 @@ section[id]{scroll-margin-top:62px}
     <div class="news">
     <!-- 公開時は管理画面で登録した「お知らせ・臨時イベント」がここに並ぶ -->
     <ul>
-      <li><time>2026.11.01</time><p>軽食メニューがスタートしました<small>お酒に合うおつまみをご用意しています。</small></p></li>
+      <li><time>2026.11.01</time><p>軽食メニューがスタートします<small>お酒に合うおつまみをご用意します。</small></p></li>
       <li><time>2026.10.03</time><p>BAR NIMO オープンしました！<small>21:00からお待ちしています。</small></p></li>
     </ul>
     </div>
